@@ -1,14 +1,16 @@
-import { useState, useMemo } from 'react';
-import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
+import { useState, useMemo, useEffect } from 'react';
+import { ChevronLeft, ChevronRight, Calendar, Edit2, X, Check, Save } from 'lucide-react';
 import { getDaysInMonth, getFirstDayOfMonth, getMonthName, getDayNumber, getTodayString } from '../utils/dateHelpers';
 import { getShiftCategory, getHospitalCategory } from '../utils/parseSchedule';
+import { HOSPITALS } from '../utils/constants';
 
 /**
  * Calendar view - Full month calendar display
  * @param {Object} props
  * @param {Object} props.user - Selected user object
+ * @param {Function} props.onUpdateShift - Handler to update shift details
  */
-const CalendarView = ({ user }) => {
+const CalendarView = ({ user, onUpdateShift }) => {
     const today = getTodayString();
 
     // Get initial month/year from schedule or current date
@@ -26,12 +28,14 @@ const CalendarView = ({ user }) => {
     const [currentMonth, setCurrentMonth] = useState(initialDate.month);
     const [selectedDate, setSelectedDate] = useState(null);
 
+    // Editing State
+    const [isEditing, setIsEditing] = useState(false);
+    const [editForm, setEditForm] = useState({ hospital: '', code: '' });
+
     const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
     const monthData = useMemo(() => {
         const days = getDaysInMonth(currentYear, currentMonth);
-        // Check if we need to shift back one day as per user request
-        // (val + 6) % 7 is equivalent to (val - 1) with wrap around
         const rawFirstDay = getFirstDayOfMonth(currentYear, currentMonth);
         const firstDay = (rawFirstDay + 6) % 7;
 
@@ -42,6 +46,22 @@ const CalendarView = ({ user }) => {
 
         return { days, firstDay, monthName };
     }, [currentYear, currentMonth]);
+
+    // Reset editing when selection changes
+    useEffect(() => {
+        setIsEditing(false);
+        if (selectedDate) {
+            const shift = user.schedule[selectedDate];
+            if (shift) {
+                setEditForm({
+                    hospital: typeof shift === 'object' ? shift.hospital : '',
+                    code: typeof shift === 'object' ? shift.code : String(shift)
+                });
+            } else {
+                setEditForm({ hospital: HOSPITALS[0].name, code: '' });
+            }
+        }
+    }, [selectedDate, user.schedule]);
 
     const goToPrevMonth = () => {
         if (currentMonth === 0) {
@@ -59,6 +79,21 @@ const CalendarView = ({ user }) => {
         } else {
             setCurrentMonth(currentMonth + 1);
         }
+    };
+
+    const handleSaveEdit = () => {
+        if (!selectedDate) return;
+
+        // Find hospital color
+        const hospitalObj = HOSPITALS.find(h => h.name === editForm.hospital) || HOSPITALS[0];
+
+        onUpdateShift(user.id, selectedDate, {
+            hospital: editForm.hospital,
+            code: editForm.code,
+            color: hospitalObj.color
+        });
+
+        setIsEditing(false);
     };
 
     const selectedShift = selectedDate ? user.schedule[selectedDate] : null;
@@ -116,12 +151,10 @@ const CalendarView = ({ user }) => {
 
                     {/* Calendar Grid */}
                     <div className="grid grid-cols-7 gap-1">
-                        {/* Empty cells for alignment */}
                         {Array(monthData.firstDay).fill(null).map((_, idx) => (
                             <div key={`empty-${idx}`} className="aspect-square" />
                         ))}
 
-                        {/* Day cells */}
                         {monthData.days.map(dateStr => {
                             const dayNum = getDayNumber(dateStr);
                             const shift = user.schedule[dateStr];
@@ -130,7 +163,6 @@ const CalendarView = ({ user }) => {
                             const hasShift = shiftCode && shiftCode.trim() !== '';
                             const isToday = dateStr === today;
                             const isSelected = dateStr === selectedDate;
-                            const category = hasShift ? getShiftCategory(shift) : 'off';
 
                             return (
                                 <button
@@ -156,25 +188,52 @@ const CalendarView = ({ user }) => {
                     </div>
                 </div>
 
-                {/* Selected Date Details */}
+                {/* Selected Date Details / Editor */}
                 {selectedDate && (
-                    <div className="mt-4 glass-card rounded-2xl p-4 shadow-lg animate-fade-in-up">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm text-gray-500">
-                                    {new Date(selectedDate + 'T00:00:00').toLocaleDateString('en-US', {
-                                        weekday: 'long',
-                                        month: 'long',
-                                        day: 'numeric'
-                                    })}
-                                </p>
-                                <div className="mt-1">
+                    <div className="mt-4 glass-card rounded-2xl p-5 shadow-lg animate-fade-in-up">
+                        <div className="flex items-center justify-between mb-2">
+                            <p className="text-sm font-bold text-gray-400 uppercase tracking-wider">
+                                {new Date(selectedDate + 'T00:00:00').toLocaleDateString('en-US', {
+                                    weekday: 'long',
+                                    month: 'long',
+                                    day: 'numeric'
+                                })}
+                            </p>
+
+                            {!isEditing ? (
+                                <button
+                                    onClick={() => setIsEditing(true)}
+                                    className="p-2 bg-gray-100 text-gray-600 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                >
+                                    <Edit2 size={16} />
+                                </button>
+                            ) : (
+                                <div className="flex items-center gap-2">
+                                    <button
+                                        onClick={() => setIsEditing(false)}
+                                        className="p-2 bg-gray-100 text-gray-500 rounded-full hover:bg-red-50 hover:text-red-500 transition-colors"
+                                    >
+                                        <X size={18} />
+                                    </button>
+                                    <button
+                                        onClick={handleSaveEdit}
+                                        className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30"
+                                    >
+                                        <Check size={18} />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        {!isEditing ? (
+                            <div className="flex items-center justify-between mt-2">
+                                <div>
                                     {selectedShift ? (
                                         <>
-                                            <p className="text-xs text-blue-500 font-bold uppercase tracking-wider">
+                                            <p className="text-xs text-blue-500 font-bold uppercase tracking-wider mb-1">
                                                 {typeof selectedShift === 'object' ? selectedShift.hospital : ''}
                                             </p>
-                                            <p className="text-xl font-bold text-gray-800">
+                                            <p className="text-2xl font-black text-gray-800">
                                                 {typeof selectedShift === 'object' ? selectedShift.code : selectedShift}
                                             </p>
                                         </>
@@ -182,32 +241,58 @@ const CalendarView = ({ user }) => {
                                         <p className="text-xl font-bold text-gray-400">No rotation</p>
                                     )}
                                 </div>
+                                {selectedShift && (
+                                    <div className={`px-4 py-2 rounded-xl hospital-${getHospitalCategory(selectedShift.hospital)} shadow-sm`}>
+                                        <span className="text-white text-sm font-bold">
+                                            {typeof selectedShift === 'object' ? selectedShift.code : selectedShift}
+                                        </span>
+                                    </div>
+                                )}
                             </div>
-                            {selectedShift && (
-                                <div className={`px-4 py-2 rounded-xl hospital-${getHospitalCategory(selectedShift.hospital)} shadow-sm`}>
-                                    <span className="text-white text-sm font-bold">
-                                        {typeof selectedShift === 'object' ? selectedShift.code : selectedShift}
-                                    </span>
+                        ) : (
+                            <div className="space-y-4 mt-2">
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">Hospital</label>
+                                    <div className="relative">
+                                        <select
+                                            className="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-800 text-sm font-bold px-4 py-3 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
+                                            value={editForm.hospital}
+                                            onChange={e => setEditForm({ ...editForm, hospital: e.target.value })}
+                                        >
+                                            <option value="">Select Hospital</option>
+                                            {HOSPITALS.map(h => (
+                                                <option key={h.name} value={h.name}>{h.name}</option>
+                                            ))}
+                                        </select>
+                                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                                            <ChevronRight className="w-4 h-4 rotate-90" />
+                                        </div>
+                                    </div>
                                 </div>
-                            )}
-                        </div>
+
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">Rotation / Shift Code</label>
+                                    <input
+                                        type="text"
+                                        className="block w-full bg-gray-50 border border-gray-200 text-gray-800 text-sm font-bold px-4 py-3 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all placeholder:font-normal"
+                                        placeholder="e.g. ER, ICU, OT"
+                                        value={editForm.code}
+                                        onChange={e => setEditForm({ ...editForm, code: e.target.value })}
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
+
                 {/* Legend */}
                 <div className="mt-4 px-2">
                     <p className="text-xs text-gray-400 font-medium mb-2">Hospital Legend</p>
                     <div className="flex flex-wrap gap-x-4 gap-y-2">
-                        {[
-                            { label: 'AQ General', className: 'hospital-aq-general' },
-                            { label: 'AQ Women', className: 'hospital-aq-women' },
-                            { label: 'Saqr', className: 'hospital-saqr' },
-                            { label: 'Dibba', className: 'hospital-dibba' },
-                            { label: 'Community', className: 'hospital-community' },
-                            { label: 'Abdullah Omran', className: 'hospital-abdullah' },
-                        ].map(item => (
-                            <div key={item.label} className="flex items-center gap-1.5">
-                                <div className={`w-2.5 h-2.5 rounded-full ${item.className}`} />
-                                <span className="text-[10px] text-gray-500 font-medium">{item.label}</span>
+                        {HOSPITALS.map(h => (
+                            <div key={h.name} className="flex items-center gap-1.5">
+                                <div className={`w-2.5 h-2.5 rounded-full ${h.color}`} />
+                                <span className="text-[10px] text-gray-500 font-medium">{h.name.replace(' Hospital', '')}</span>
                             </div>
                         ))}
                     </div>

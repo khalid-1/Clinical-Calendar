@@ -131,6 +131,20 @@ function App() {
     setActiveTab('home');
   };
 
+  const handleUpdateShift = (studentId, date, update) => {
+    // update: { hospital, code, color }
+    const newOverrides = { ...overrides };
+    if (!newOverrides[studentId]) newOverrides[studentId] = {};
+
+    // Merge with existing daily override if any, or create new
+    newOverrides[studentId][date] = {
+      ...(newOverrides[studentId][date] || {}),
+      ...update
+    };
+
+    handleApplyOverrides(newOverrides);
+  };
+
   // Render logic
   const renderContent = () => {
     if (!scheduleData) {
@@ -154,7 +168,7 @@ function App() {
       case 'home':
         return <DashboardView user={user} onLogout={handleChangeUser} onNavigate={setActiveTab} />;
       case 'calendar':
-        return <CalendarView user={user} />;
+        return <CalendarView user={user} onUpdateShift={handleUpdateShift} />;
       case 'settings':
         return (
           <SettingsView

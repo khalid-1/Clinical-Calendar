@@ -57,7 +57,14 @@ export const processStaticData = (overrides = {}) => {
             // Apply Override if exists
             if (overrides && overrides[student.id] && overrides[student.id][date]) {
                 const ov = overrides[student.id][date];
-                hospitalData = { name: ov.hospital, color: ov.color };
+                // Apply hospital override
+                if (ov.hospital) {
+                    hospitalData = { name: ov.hospital, color: ov.color };
+                }
+                // Apply shift code override
+                if (ov.code !== undefined) {
+                    code = ov.code;
+                }
             }
 
             finalSchedule[date] = {
