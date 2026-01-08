@@ -94,8 +94,8 @@ export default defineConfig(({ command }) => ({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'Clinical Calendar',
-        short_name: 'Clinical',
+        name: 'Clinical Cal',
+        short_name: 'Clinical Cal',
         description: 'Track clinical rotations and schedules',
         theme_color: '#ffffff',
         icons: [

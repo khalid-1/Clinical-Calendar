@@ -54,12 +54,8 @@ const OnboardingView = ({ students, onSelectUser }) => {
             {/* Header - Static */}
             <div className="px-6 pb-4 pt-[calc(env(safe-area-inset-top)+1.5rem)] shrink-0">
                 <div className="text-center space-y-3 mb-6">
-                    <div className="w-20 h-20 mx-auto transform hover:scale-105 transition-transform duration-300">
-                        <img
-                            src="/logo.png"
-                            alt="Clinical Calendar Logo"
-                            className="w-full h-full object-contain rounded-[1.5rem] shadow-xl border-2 border-white/30"
-                        />
+                    <div className="bg-white/20 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto backdrop-blur-sm">
+                        <CalendarDays size={32} className="text-white" />
                     </div>
                     <div>
                         <h1 className="text-2xl font-bold text-white">Who are you?</h1>
