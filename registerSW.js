@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/Clinical-Calendar/sw.js', { scope: '/Clinical-Calendar/' })})}
