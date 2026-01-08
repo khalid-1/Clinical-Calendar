@@ -7,6 +7,7 @@ import SettingsView from './views/SettingsView';
 import BottomNav from './components/BottomNav';
 import { getStoredData, getSelectedUser, setStoredData, setSelectedUser as saveSelectedUser, clearAllData, clearSelectedUser, getScheduleOverrides, saveScheduleOverrides } from './utils/storage';
 import { processStaticData } from './utils/processStaticData';
+import InstallPrompt from './components/InstallPrompt';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -52,6 +53,23 @@ function App() {
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('home');
   const [overrides, setOverrides] = useState({});
+  const [isStandalone, setIsStandalone] = useState(false);
+  const [bypassInstall, setBypassInstall] = useState(false);
+
+  // 0. Check Standalone Mode
+  useEffect(() => {
+    const checkStandalone = () => {
+      const isIOSStandalone = window.navigator.standalone === true;
+      const isAndroidStandalone = window.matchMedia('(display-mode: standalone)').matches;
+      // Allow dev environment (localhost) to bypass potentially, or just use the bypass button
+      // For now, stricly check standalone
+      setIsStandalone(isIOSStandalone || isAndroidStandalone);
+    };
+
+    checkStandalone();
+    window.addEventListener('resize', checkStandalone); // Sometimes mode changes on rotation/resize? Unlikely but safe.
+    return () => window.removeEventListener('resize', checkStandalone);
+  }, []);
 
   // 1. Load Data on Mount
   useEffect(() => {
@@ -158,14 +176,18 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <div className="max-w-md mx-auto bg-white min-h-screen shadow-2xl overflow-hidden relative">
-        {renderContent()}
+      {(!isStandalone && !bypassInstall) ? (
+        <InstallPrompt onBypass={() => setBypassInstall(true)} />
+      ) : (
+        <div className="max-w-md mx-auto bg-white min-h-screen shadow-2xl overflow-hidden relative">
+          {renderContent()}
 
-        {/* Show Bottom Nav only when user is logged in */}
-        {user && scheduleData && (
-          <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
-        )}
-      </div>
+          {/* Show Bottom Nav only when user is logged in */}
+          {user && scheduleData && (
+            <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+          )}
+        </div>
+      )}
     </ErrorBoundary>
   );
 }
