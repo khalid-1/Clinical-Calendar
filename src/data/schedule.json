@@ -1231,125 +1231,109 @@
     "id": "22904015",
     "name": "Fatima Sami Qasem Thabit",
     "shifts": {
-      "2026-01-13": {
-        "shift": "Community Health",
-        "hospital": "Community Health"
-      },
-      "2026-01-14": {
-        "shift": "Community Health",
-        "hospital": "Community Health"
-      },
-      "2026-01-15": {
-        "shift": "Community Health",
-        "hospital": "Community Health"
-      },
-      "2026-01-20": {
-        "shift": "Community Health",
-        "hospital": "Community Health"
-      },
-      "2026-01-21": {
-        "shift": "Community Health",
-        "hospital": "Community Health"
-      },
       "2026-01-28": {
         "shift": "ICU 1",
-        "hospital": "Al Qasimi General Hospital"
+        "hospital": "Al Qassmi General Hospital"
       },
       "2026-01-29": {
         "shift": "ICU 1",
-        "hospital": "Al Qasimi General Hospital"
+        "hospital": "Al Qassmi General Hospital"
       },
       "2026-01-31": {
         "shift": "ER 4",
-        "hospital": "Al Qasimi General Hospital"
+        "hospital": "Al Qassmi General Hospital"
       },
       "2026-02-04": {
         "shift": "SU",
-        "hospital": "Al Qasimi General Hospital"
+        "hospital": "Al Qassmi General Hospital"
       },
       "2026-02-05": {
         "shift": "HD",
-        "hospital": "Al Qasimi General Hospital"
+        "hospital": "Al Qassmi General Hospital"
       },
       "2026-02-07": {
         "shift": "ICU 3",
-        "hospital": "Al Qasimi General Hospital"
+        "hospital": "Al Qassmi General Hospital"
       },
       "2026-02-11": {
         "shift": "ER",
-        "hospital": "Community Health"
+        "hospital": "Al Kuwait Sharjah Hospital"
       },
       "2026-02-12": {
         "shift": "ER",
-        "hospital": "Community Health"
+        "hospital": "Al Kuwait Sharjah Hospital"
       },
       "2026-02-14": {
         "shift": "OT",
-        "hospital": "Community Health"
+        "hospital": "Al Kuwait Sharjah Hospital"
       },
       "2026-02-18": {
         "shift": "ICU",
-        "hospital": "Community Health"
+        "hospital": "Al Kuwait Sharjah Hospital"
       },
       "2026-02-19": {
         "shift": "ICU",
-        "hospital": "Community Health"
+        "hospital": "Al Kuwait Sharjah Hospital"
       },
       "2026-02-21": {
         "shift": "FSW",
-        "hospital": "Community Health"
+        "hospital": "Al Kuwait Sharjah Hospital"
       },
       "2026-02-24": {
         "shift": "PN-1",
-        "hospital": "Community Health"
+        "hospital": "Al Q Women & Child Hospital"
       },
       "2026-02-25": {
         "shift": "PN-1",
-        "hospital": "Community Health"
+        "hospital": "Al Q Women & Child Hospital"
       },
       "2026-02-26": {
         "shift": "PN-1",
-        "hospital": "Community Health"
+        "hospital": "Al Q Women & Child Hospital"
       },
       "2026-03-03": {
         "shift": "OPD",
-        "hospital": "Community Health"
+        "hospital": "Al Q Women & Child Hospital"
       },
       "2026-03-04": {
         "shift": "ER",
-        "hospital": "Community Health"
+        "hospital": "Al Q Women & Child Hospital"
       },
       "2026-03-05": {
         "shift": "ER",
-        "hospital": "Community Health"
+        "hospital": "Al Q Women & Child Hospital"
       },
       "2026-03-10": {
         "shift": "OBG-2",
-        "hospital": "Community Health"
+        "hospital": "Al Q Women & Child Hospital"
       },
       "2026-03-11": {
         "shift": "OBG-2",
-        "hospital": "Community Health"
+        "hospital": "Al Q Women & Child Hospital"
       },
       "2026-03-12": {
         "shift": "OBG-2",
-        "hospital": "Community Health"
+        "hospital": "Al Q Women & Child Hospital"
       },
       "2026-03-14": {
         "shift": "OBG-1",
-        "hospital": "Community Health"
+        "hospital": "Al Q Women & Child Hospital"
       },
       "2026-03-31": {
         "shift": "OBG-1",
-        "hospital": "Abdullah Bin Omran Hospital"
+        "hospital": "Al Q Women & Child Hospital"
       },
       "2026-04-01": {
         "shift": "OBG-1",
-        "hospital": "Abdullah Bin Omran Hospital"
+        "hospital": "Al Q Women & Child Hospital"
       },
-      "2026-01-22": {
-        "shift": "Community Health",
-        "hospital": "Community Health"
+      "2026-04-02": {
+        "shift": "OBG-1",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-04-04": {
+        "shift": "OBG-1",
+        "hospital": "Al Q Women & Child Hospital"
       }
     }
   },
@@ -2358,6 +2342,1872 @@
       "2026-01-22": {
         "shift": "Community Health",
         "hospital": "Community Health"
+      }
+    }
+  },
+  {
+    "id": "20904068",
+    "name": "Fatima Saif Ahmed Mohammad Alshaferi",
+    "shifts": {
+      "2026-01-14": {
+        "shift": "MW",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-15": {
+        "shift": "MW",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-17": {
+        "shift": "AE",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-20": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-21": {
+        "shift": "ICU",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-24": {
+        "shift": "ICU",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-27": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-28": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-29": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-03": {
+        "shift": "PN-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-04": {
+        "shift": "LR",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-05": {
+        "shift": "LR",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-11": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-12": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-14": {
+        "shift": "OBS -1 W",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-18": {
+        "shift": "OBS -1 W",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-19": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-21": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-24": {
+        "shift": "MAR HC",
+        "hospital": ""
+      },
+      "2026-02-25": {
+        "shift": "MAR HC",
+        "hospital": ""
+      },
+      "2026-03-03": {
+        "shift": "MAR HC",
+        "hospital": ""
+      },
+      "2026-03-04": {
+        "shift": "MAR HC",
+        "hospital": ""
+      },
+      "2026-03-11": {
+        "shift": "OT",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-03-12": {
+        "shift": "OT",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-03-14": {
+        "shift": "ER",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-04-01": {
+        "shift": "ER",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-04-02": {
+        "shift": "ICU",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-04-04": {
+        "shift": "ER",
+        "hospital": "Saqr Hospital"
+      }
+    }
+  },
+  {
+    "id": "21904077",
+    "name": "Hamad Zeyad",
+    "shifts": {
+      "2026-01-14": {
+        "shift": "Pead ER",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-15": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-17": {
+        "shift": "ER OBS",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-20": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-21": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-24": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-27": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-01-28": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-02-03": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-02-04": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-02-11": {
+        "shift": "ER 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-12": {
+        "shift": "SU",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-14": {
+        "shift": "CICU",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-18": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-19": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-21": {
+        "shift": "ICU 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-25": {
+        "shift": "FMW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-26": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-28": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-04": {
+        "shift": "Endoscopy",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-05": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-07": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-10": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-11": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-12": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-04-01": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-04-02": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      }
+    }
+  },
+  {
+    "id": "21904081",
+    "name": "Khaled Musaed Naji Al Zeqri",
+    "shifts": {
+      "2026-01-13": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-14": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-15": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-19": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-20": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-21": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-28": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-29": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-31": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-02-04": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-05": {
+        "shift": "ER OBS",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-07": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-10": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-02-11": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-02-17": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-02-18": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-02-25": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-26": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-28": {
+        "shift": "ICU 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-04": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-05": {
+        "shift": "ER 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-07": {
+        "shift": "ER 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-11": {
+        "shift": "Endoscopy",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-12": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-14": {
+        "shift": "MSW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-04-01": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-04-02": {
+        "shift": "MSW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-04-04": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      }
+    }
+  },
+  {
+    "id": "21904082",
+    "name": "Samah Abdelrahman Mahmoud Bilal",
+    "shifts": {
+      "2026-01-13": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-14": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-15": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-19": {
+        "shift": "OBG-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-20": {
+        "shift": "OBG-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-21": {
+        "shift": "OBG-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-27": {
+        "shift": "DIG HC",
+        "hospital": ""
+      },
+      "2026-01-28": {
+        "shift": "DIG HC",
+        "hospital": ""
+      },
+      "2026-02-03": {
+        "shift": "DIG HC",
+        "hospital": ""
+      },
+      "2026-02-04": {
+        "shift": "DIG HC",
+        "hospital": ""
+      },
+      "2026-02-11": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-12": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-14": {
+        "shift": "ICU 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-18": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-19": {
+        "shift": "SU",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-21": {
+        "shift": "ER 5",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-25": {
+        "shift": "OT",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-26": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-28": {
+        "shift": "FSW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-04": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-05": {
+        "shift": "MMW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-07": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-10": {
+        "shift": "LR",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-11": {
+        "shift": "LR",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-12": {
+        "shift": "LR",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-04-01": {
+        "shift": "PN-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-04-02": {
+        "shift": "PN-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      }
+    }
+  },
+  {
+    "id": "22904001",
+    "name": "Roqaiya Mohamed Ajdad",
+    "shifts": {
+      "2026-01-14": {
+        "shift": "ICU",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-15": {
+        "shift": "ICU",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-17": {
+        "shift": "MW",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-20": {
+        "shift": "MW",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-21": {
+        "shift": "AE",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-24": {
+        "shift": "MW",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-27": {
+        "shift": "OPD",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-28": {
+        "shift": "OPD",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-29": {
+        "shift": "OPD",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-03": {
+        "shift": "ER",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-04": {
+        "shift": "PN-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-05": {
+        "shift": "PN-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-11": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-12": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-14": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-18": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-19": {
+        "shift": "OBS -1 W",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-21": {
+        "shift": "OBS -1 W",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-24": {
+        "shift": "MAR HC",
+        "hospital": ""
+      },
+      "2026-02-25": {
+        "shift": "AS HC",
+        "hospital": ""
+      },
+      "2026-03-03": {
+        "shift": "AS HC",
+        "hospital": ""
+      },
+      "2026-03-04": {
+        "shift": "AS HC",
+        "hospital": ""
+      },
+      "2026-03-11": {
+        "shift": "ICU",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-03-12": {
+        "shift": "ICU",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-03-14": {
+        "shift": "OT",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-04-01": {
+        "shift": "OT",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-04-02": {
+        "shift": "OPD",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-04-04": {
+        "shift": "ER",
+        "hospital": "Saqr Hospital"
+      }
+    }
+  },
+  {
+    "id": "22904002",
+    "name": "Aliya Abdillahi Ahmed",
+    "shifts": {
+      "2026-01-13": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-14": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-15": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-19": {
+        "shift": "PN-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-20": {
+        "shift": "LR",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-21": {
+        "shift": "LR",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-28": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-29": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-31": {
+        "shift": "OBS -1 W",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-04": {
+        "shift": "OBS -1 W",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-05": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-07": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-10": {
+        "shift": "MAR HC",
+        "hospital": ""
+      },
+      "2026-02-11": {
+        "shift": "MAR HC",
+        "hospital": ""
+      },
+      "2026-02-17": {
+        "shift": "MAR HC",
+        "hospital": ""
+      },
+      "2026-02-18": {
+        "shift": "MAR HC",
+        "hospital": ""
+      },
+      "2026-02-25": {
+        "shift": "OT",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-02-26": {
+        "shift": "OT",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-02-28": {
+        "shift": "ER",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-03-04": {
+        "shift": "ER",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-03-05": {
+        "shift": "ICU",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-03-07": {
+        "shift": "ER",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-03-11": {
+        "shift": "MW",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-03-12": {
+        "shift": "MW",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-03-14": {
+        "shift": "AE",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-04-01": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-04-02": {
+        "shift": "ICU",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-04-04": {
+        "shift": "ICU",
+        "hospital": "Dibba Hospital"
+      }
+    }
+  },
+  {
+    "id": "22904003",
+    "name": "Adil Abdur Rahman",
+    "shifts": {
+      "2026-01-14": {
+        "shift": "Endoscopy",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-15": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-17": {
+        "shift": "MSW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-20": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-21": {
+        "shift": "MSW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-24": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-27": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-28": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-01-29": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-03": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-04": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-05": {
+        "shift": "NICU",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-11": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-02-12": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-02-14": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-02-18": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-19": {
+        "shift": "ER OBS",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-21": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-24": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-02-25": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-03-03": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-03-04": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-03-11": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-12": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-14": {
+        "shift": "ICU 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-04-01": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-04-02": {
+        "shift": "ER 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-04-04": {
+        "shift": "ER 3",
+        "hospital": "Al Qassmi General Hospital"
+      }
+    }
+  },
+  {
+    "id": "22904004",
+    "name": "Isra Atif Mirgani Mohamed",
+    "shifts": {
+      "2026-01-14": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-15": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-17": {
+        "shift": "ER 4",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-20": {
+        "shift": "SU",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-21": {
+        "shift": "HD",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-24": {
+        "shift": "ICU 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-28": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-29": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-31": {
+        "shift": "OT",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-04": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-05": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-07": {
+        "shift": "FSW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-10": {
+        "shift": "PN-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-11": {
+        "shift": "PN-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-12": {
+        "shift": "PN-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-17": {
+        "shift": "OPD",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-18": {
+        "shift": "ER",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-19": {
+        "shift": "ER",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-24": {
+        "shift": "OBG-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-25": {
+        "shift": "OBG-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-26": {
+        "shift": "OBG-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-03": {
+        "shift": "OBG-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-04": {
+        "shift": "OBG-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-05": {
+        "shift": "OBG-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-10": {
+        "shift": "RAMAS",
+        "hospital": ""
+      },
+      "2026-03-11": {
+        "shift": "RAMAS",
+        "hospital": ""
+      },
+      "2026-04-01": {
+        "shift": "RAMAS",
+        "hospital": ""
+      }
+    }
+  },
+  {
+    "id": "22904005",
+    "name": "Mahmoud Daud Abdi Yusuf",
+    "shifts": {
+      "2026-01-14": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-15": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-17": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-20": {
+        "shift": "ER OBS",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-21": {
+        "shift": "Pead ER",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-24": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-27": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-01-28": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-02-03": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-02-04": {
+        "shift": "JAZ HC",
+        "hospital": ""
+      },
+      "2026-02-11": {
+        "shift": "MCW",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-12": {
+        "shift": "ER 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-14": {
+        "shift": "ICU 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-18": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-19": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-21": {
+        "shift": "HD",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-25": {
+        "shift": "FMW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-26": {
+        "shift": "OT",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-28": {
+        "shift": "MMW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-04": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-05": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-03-07": {
+        "shift": "CCU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      }
+    }
+  },
+  {
+    "id": "22904006",
+    "name": "Naeema Abdullah Abubakar",
+    "shifts": {
+      "2026-01-14": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-15": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-17": {
+        "shift": "HD",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-20": {
+        "shift": "ER 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-21": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-24": {
+        "shift": "ER 4",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-28": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-29": {
+        "shift": "OT",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-31": {
+        "shift": "FMW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-04": {
+        "shift": "CCU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-05": {
+        "shift": "CCU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-07": {
+        "shift": "MMW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-10": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-11": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-12": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-17": {
+        "shift": "LR",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-18": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-19": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-24": {
+        "shift": "OBG-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-25": {
+        "shift": "OBG-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-02-26": {
+        "shift": "OBG-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-03": {
+        "shift": "OBG-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-04": {
+        "shift": "OBG-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-05": {
+        "shift": "OBG-1",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-10": {
+        "shift": "DIG HC",
+        "hospital": ""
+      },
+      "2026-03-11": {
+        "shift": "DIG HC",
+        "hospital": ""
+      },
+      "2026-04-01": {
+        "shift": "DIG HC",
+        "hospital": ""
+      }
+    }
+  },
+  {
+    "id": "22904008",
+    "name": "Halima Mohamoud Hussein Hassan",
+    "shifts": {
+      "2026-01-14": {
+        "shift": "ICU",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-01-15": {
+        "shift": "ICU",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-01-17": {
+        "shift": "OT",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-01-20": {
+        "shift": "OT",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-01-21": {
+        "shift": "ER",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-01-24": {
+        "shift": "ER",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-01-27": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-28": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-29": {
+        "shift": "OT",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-03": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-04": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-05": {
+        "shift": "MMW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-10": {
+        "shift": "DIG HC",
+        "hospital": ""
+      },
+      "2026-02-11": {
+        "shift": "DIG HC",
+        "hospital": ""
+      },
+      "2026-02-17": {
+        "shift": "DIG HC",
+        "hospital": ""
+      },
+      "2026-02-18": {
+        "shift": "DIG HC",
+        "hospital": ""
+      },
+      "2026-03-11": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-12": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-14": {
+        "shift": "ICU 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-04-01": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-04-02": {
+        "shift": "SU",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-04-04": {
+        "shift": "ER 5",
+        "hospital": "Al Qassmi General Hospital"
+      }
+    }
+  },
+  {
+    "id": "22904010",
+    "name": "Mohammed Jalal Abdulla",
+    "shifts": {
+      "2026-01-14": {
+        "shift": "HD",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-15": {
+        "shift": "HD",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-17": {
+        "shift": "ER 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-20": {
+        "shift": "ER 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-21": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-01-24": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-11": {
+        "shift": "FSW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-12": {
+        "shift": "FSW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-14": {
+        "shift": "CCU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-18": {
+        "shift": "FMW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-19": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-21": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-24": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-25": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-26": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-03-03": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-03-04": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-03-05": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-03-10": {
+        "shift": "ER OBS",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-03-11": {
+        "shift": "ER",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-03-12": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-03-14": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-03-31": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-04-01": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-04-02": {
+        "shift": "RAK PHC",
+        "hospital": ""
+      },
+      "2026-04-04": {
+        "shift": "RAK PHC",
+        "hospital": ""
+      }
+    }
+  },
+  {
+    "id": "22904011",
+    "name": "Aleena Maria Steephan",
+    "shifts": {
+      "2026-01-13": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-14": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-15": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-19": {
+        "shift": "OBG-1",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-20": {
+        "shift": "OBG-1",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-21": {
+        "shift": "OBG-1",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-27": {
+        "shift": "AS HC",
+        "hospital": ""
+      },
+      "2026-01-28": {
+        "shift": "AS HC",
+        "hospital": ""
+      },
+      "2026-02-03": {
+        "shift": "AS HC",
+        "hospital": ""
+      },
+      "2026-02-04": {
+        "shift": "AS HC",
+        "hospital": ""
+      },
+      "2026-02-11": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-12": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-14": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-18": {
+        "shift": "FMW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-19": {
+        "shift": "OT",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-21": {
+        "shift": "OT",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-25": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-26": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-28": {
+        "shift": "HD",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-04": {
+        "shift": "ER 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-05": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-07": {
+        "shift": "ER 4",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-10": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-11": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-12": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-04-01": {
+        "shift": "LR",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-04-02": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      }
+    }
+  },
+  {
+    "id": "22904012",
+    "name": "Sethulekshmi Gopakumar",
+    "shifts": {
+      "2026-01-13": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-14": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-15": {
+        "shift": "LR",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-19": {
+        "shift": "OBG-1",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-20": {
+        "shift": "OBG-1",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-21": {
+        "shift": "OBG-1",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-01-27": {
+        "shift": "RAMAS",
+        "hospital": ""
+      },
+      "2026-01-28": {
+        "shift": "RAMAS",
+        "hospital": ""
+      },
+      "2026-02-03": {
+        "shift": "RAMAS",
+        "hospital": ""
+      },
+      "2026-02-04": {
+        "shift": "RAMAS",
+        "hospital": ""
+      },
+      "2026-02-11": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-12": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-14": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-18": {
+        "shift": "FSW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-19": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-21": {
+        "shift": "OT",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-25": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-26": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-28": {
+        "shift": "HD",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-04": {
+        "shift": "ER 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-05": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-07": {
+        "shift": "ER 4",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-10": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-11": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-12": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-04-01": {
+        "shift": "LR",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-04-02": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      }
+    }
+  },
+  {
+    "id": "22904013",
+    "name": "Aisha Ibrahim Adan Shil",
+    "shifts": {
+      "2026-01-14": {
+        "shift": "OPD",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-01-15": {
+        "shift": "ER",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-01-17": {
+        "shift": "ER",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-01-20": {
+        "shift": "ICU",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-01-21": {
+        "shift": "OT",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-01-24": {
+        "shift": "OT",
+        "hospital": "Saqr Hospital"
+      },
+      "2026-01-27": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-28": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-29": {
+        "shift": "ICU",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-02-03": {
+        "shift": "ICU",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-02-04": {
+        "shift": "ICU",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-02-05": {
+        "shift": "ER",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-02-10": {
+        "shift": "JUL HC",
+        "hospital": ""
+      },
+      "2026-02-11": {
+        "shift": "JUL HC",
+        "hospital": ""
+      },
+      "2026-02-17": {
+        "shift": "JUL HC",
+        "hospital": ""
+      },
+      "2026-02-18": {
+        "shift": "JUL HC",
+        "hospital": ""
+      },
+      "2026-03-11": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-12": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-14": {
+        "shift": "ICU 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-04-01": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-04-02": {
+        "shift": "ER 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-04-04": {
+        "shift": "ER 3",
+        "hospital": "Al Qassmi General Hospital"
+      }
+    }
+  },
+  {
+    "id": "22904014",
+    "name": "Batool Ismail Shaker Al Titi",
+    "shifts": {
+      "2026-01-14": {
+        "shift": "OT",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-15": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-17": {
+        "shift": "FMW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-20": {
+        "shift": "CCU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-21": {
+        "shift": "CCU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-01-24": {
+        "shift": "MMW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-11": {
+        "shift": "JUL HC",
+        "hospital": ""
+      },
+      "2026-02-12": {
+        "shift": "JUL HC",
+        "hospital": ""
+      },
+      "2026-02-18": {
+        "shift": "JUL HC",
+        "hospital": ""
+      },
+      "2026-02-19": {
+        "shift": "JUL HC",
+        "hospital": ""
+      },
+      "2026-02-25": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-26": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-02-28": {
+        "shift": "HD",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-04": {
+        "shift": "ER 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-05": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-07": {
+        "shift": "ER 4",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-10": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-11": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-03-12": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-04-01": {
+        "shift": "LR",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-04-02": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      },
+      "2026-04-04": {
+        "shift": "PN-2",
+        "hospital": "Abdullah Bin Omran Hospital"
+      }
+    }
+  },
+  {
+    "id": "22904017",
+    "name": "Said bashir hagi",
+    "shifts": {
+      "2026-01-27": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-28": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-01-29": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-02-04": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-02-05": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-02-07": {
+        "shift": "OT",
+        "hospital": "Dibba Hospital"
+      },
+      "2026-02-11": {
+        "shift": "FMW",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-12": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-14": {
+        "shift": "ICU",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-18": {
+        "shift": "Endoscopy",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-19": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-21": {
+        "shift": "ER",
+        "hospital": "Al Kuwait Sharjah Hospital"
+      },
+      "2026-02-24": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-25": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-02-26": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-03-03": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-03-04": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-03-05": {
+        "shift": "NICU",
+        "hospital": "Al Q Women & Child Hospital"
+      },
+      "2026-03-10": {
+        "shift": "ER 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-11": {
+        "shift": "SU",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-12": {
+        "shift": "CICU",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-03-14": {
+        "shift": "ICU 2",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-04-01": {
+        "shift": "ICU 1",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-04-02": {
+        "shift": "ICU 3",
+        "hospital": "Al Qassmi General Hospital"
+      },
+      "2026-04-04": {
+        "shift": "ICU 3",
+        "hospital": "Al Qassmi General Hospital"
       }
     }
   }
