@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { LogOut, Clock, MapPin, AlertCircle, Settings, Calendar, Timer } from 'lucide-react';
 import ShiftCard from '../components/ShiftCard';
 import { getTodayString, getUpcomingDays, formatDate, isTomorrow, getTimeRemaining } from '../utils/dateHelpers';
-import { getHospitalCategory } from '../utils/parseSchedule';
+import { getHospitalCategory } from '../utils/scheduleUtils';
 
 /**
  * Dashboard view - Main app screen showing today's shift and upcoming schedule

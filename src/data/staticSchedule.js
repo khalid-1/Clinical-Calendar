@@ -59,7 +59,7 @@ export const staticSchedule = [
 ];
 
 // Helper to process this simple format into the app's full format
-import { getHospitalFromShift } from '../utils/parseSchedule';
+import { getHospitalFromShift } from '../utils/scheduleUtils';
 
 export const processStaticData = () => {
     const processedStudents = staticSchedule.map(student => {

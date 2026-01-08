@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Calendar, Edit2, X, Check, Save, Trash2 } from 'lucide-react';
 import { getDaysInMonth, getFirstDayOfMonth, getMonthName, getDayNumber, getTodayString } from '../utils/dateHelpers';
-import { getShiftCategory, getHospitalCategory } from '../utils/parseSchedule';
+import { getShiftCategory, getHospitalCategory } from '../utils/scheduleUtils';
 import { HOSPITALS } from '../utils/constants';
 
 /**

@@ -1,6 +1,6 @@
 import { MapPin, Clock } from 'lucide-react';
 import { formatDate, getDayOfWeek, getDayNumber } from '../utils/dateHelpers';
-import { getHospitalCategory } from '../utils/parseSchedule';
+import { getHospitalCategory } from '../utils/scheduleUtils';
 /**
  * Card displaying shift information for a specific date
  * @param {Object} props

@@ -1,5 +1,5 @@
 import scheduleData from '../data/schedule.json';
-import { getHospitalFromShift, detectStudentHospitalContext } from './parseSchedule';
+import { getHospitalFromShift, detectStudentHospitalContext } from './scheduleUtils';
 
 /**
  * Process the JSON schedule data into the app's internal format
