@@ -63,7 +63,7 @@ const InstallPrompt = ({ onBypass }) => {
                     <button
                         onClick={() => setOs('ios')}
                         className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-black transition-all duration-300 ${os === 'ios'
-                            ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
+                            ? 'bg-gray-900 text-white shadow-lg'
                             : 'text-gray-400 hover:text-gray-600'
                             }`}
                     >
@@ -75,7 +75,7 @@ const InstallPrompt = ({ onBypass }) => {
                     <button
                         onClick={() => setOs('android')}
                         className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-black transition-all duration-300 ${os === 'android'
-                            ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
+                            ? 'bg-gray-900 text-white shadow-lg'
                             : 'text-gray-400 hover:text-gray-600'
                             }`}
                     >
