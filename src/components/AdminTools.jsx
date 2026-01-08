@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Download, Save, Users, Calendar, Building2, History, Clock } from 'lucide-react';
+import { Download, Save, Users, Calendar, Building2, History, Clock, Lock, KeyRound, ShieldCheck } from 'lucide-react';
 import { getUpcomingDays } from '../utils/dateHelpers';
 import { HOSPITALS } from '../utils/constants';
 
+// Simple password protection - change this to your desired password
+const ADMIN_PASSWORD = 'admin2026';
+
 const AdminTools = ({ students, overrides, onApplyOverrides }) => {
+    const [isUnlocked, setIsUnlocked] = useState(false);
+    const [passwordInput, setPasswordInput] = useState('');
+    const [passwordError, setPasswordError] = useState(false);
     const [activeTab, setActiveTab] = useState('editor'); // 'editor' | 'history'
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -21,7 +27,7 @@ const AdminTools = ({ students, overrides, onApplyOverrides }) => {
         }
     }, [activeTab]);
 
-    const handleApply = () => {
+    const handleApply = async () => {
         if (!startDate || !endDate || !selectedHospital) {
             alert('Please select start date, end date, and hospital.');
             return;
@@ -117,22 +123,35 @@ const AdminTools = ({ students, overrides, onApplyOverrides }) => {
         };
 
         try {
-            const response = await fetch('/api/save-schedule', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+            // Push to Firestore
+            // We need to write each student's schedule to their document
+            const { writeBatch, doc } = await import('firebase/firestore');
+            const { db } = await import('../services/firebase');
+
+            const batch = writeBatch(db);
+
+            // Limit: Firestore batches max 500 ops. We have ~90 students. 1 op per student. Safe.
+
+            exportData.forEach(student => {
+                const ref = doc(db, 'students', student.id);
+                // We only want to update the shifts, but 'set' with merge is safer or just replacing the shifts map
+                // But wait, exportData format is: { id, name, shifts: { date: { shift, hospital } } }
+
+                // We constructed exportData to have the "clean" shifts.
+                // Let's update the whole student doc to be safe and clean
+                batch.set(ref, {
+                    id: student.id,
+                    name: student.name,
+                    shifts: student.shifts
+                }, { merge: true });
             });
 
-            const result = await response.json();
-            if (result.success) {
-                alert('✅ Saved successfully! The app will reload shortly.');
-                window.location.reload();
-            } else {
-                alert('❌ Error: ' + result.error);
-            }
+            await batch.commit();
+            alert('✅ Saved to Cloud successfully!');
+            setTimeout(() => window.location.reload(), 1000); // Reload to fetch fresh data? Actually standard listener will catch it.
         } catch (error) {
             console.error(error);
-            alert('❌ Network Error: Is the dev server running?');
+            alert('❌ Error saving to cloud: ' + error.message);
         }
     };
 
@@ -161,6 +180,65 @@ const AdminTools = ({ students, overrides, onApplyOverrides }) => {
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
     };
+
+    const handlePasswordSubmit = (e) => {
+        e.preventDefault();
+        if (passwordInput === ADMIN_PASSWORD) {
+            setIsUnlocked(true);
+            setPasswordError(false);
+        } else {
+            setPasswordError(true);
+            setPasswordInput('');
+        }
+    };
+
+    // Password Gate UI
+    if (!isUnlocked) {
+        return (
+            <div className="bg-white/80 backdrop-blur-xl border border-white/20 p-6 rounded-3xl shadow-2xl mt-8 relative overflow-hidden">
+                {/* Decorative gradients */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -z-10"></div>
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl -z-10"></div>
+
+                <div className="flex flex-col items-center justify-center py-8 relative z-10">
+                    <div className="p-4 bg-gradient-to-br from-gray-400 to-gray-600 rounded-2xl shadow-lg mb-4">
+                        <Lock className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-black text-gray-800 mb-1">Admin Tools</h3>
+                    <p className="text-sm text-gray-500 mb-6">Enter password to access</p>
+
+                    <form onSubmit={handlePasswordSubmit} className="w-full max-w-xs">
+                        <div className="relative">
+                            <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            <input
+                                type="password"
+                                value={passwordInput}
+                                onChange={e => setPasswordInput(e.target.value)}
+                                placeholder="Password"
+                                className={`w-full pl-12 pr-4 py-3 bg-gray-50 border rounded-xl text-gray-800 font-medium focus:outline-none focus:ring-4 transition-all ${passwordError
+                                    ? 'border-red-300 focus:ring-red-500/20 focus:border-red-500'
+                                    : 'border-gray-200 focus:ring-blue-500/20 focus:border-blue-500'
+                                    }`}
+                                autoComplete="off"
+                            />
+                        </div>
+                        {passwordError && (
+                            <p className="text-red-500 text-xs font-medium mt-2 text-center animate-fade-in">
+                                Incorrect password. Try again.
+                            </p>
+                        )}
+                        <button
+                            type="submit"
+                            className="w-full mt-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-2"
+                        >
+                            <ShieldCheck className="w-5 h-5" />
+                            Unlock
+                        </button>
+                    </form>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-white/80 backdrop-blur-xl border border-white/20 p-6 rounded-3xl shadow-2xl mt-8 relative overflow-hidden">
@@ -328,10 +406,26 @@ const AdminTools = ({ students, overrides, onApplyOverrides }) => {
                     <div className="flex justify-center mt-2">
                         <button
                             onClick={generateJSON}
-                            className="text-xs font-semibold text-gray-400 hover:text-gray-600 flex items-center gap-1.5 transition-colors py-2 px-4 rounded-lg hover:bg-gray-100/50"
+                            className="text-xs font-bold text-gray-400 hover:text-gray-600 flex items-center gap-1.5 transition-colors py-2 px-4 rounded-lg hover:bg-gray-100"
                         >
                             <Download className="w-3.5 h-3.5" />
                             Download Backup JSON
+                        </button>
+
+                        <button
+                            onClick={async () => {
+                                if (!confirm("Ensure you have set up your Firebase keys in .env! Continue?")) return;
+                                const { migrateToCloud } = await import('../utils/migrateToCloud');
+                                const res = await migrateToCloud();
+                                if (res.success) alert(`Migration Complete! Uploaded ${res.count} students.`);
+                                else alert("Migration Failed: " + res.error);
+                            }}
+                            className="text-xs font-bold text-orange-500 hover:text-orange-600 flex items-center gap-1.5 transition-colors py-2 px-4 rounded-lg hover:bg-orange-50 ml-4"
+                        >
+                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                            Migrate to Cloud
                         </button>
                     </div>
                 </div>
@@ -380,3 +474,4 @@ const AdminTools = ({ students, overrides, onApplyOverrides }) => {
 };
 
 export default AdminTools;
+

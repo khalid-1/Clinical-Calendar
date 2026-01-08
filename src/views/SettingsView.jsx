@@ -130,9 +130,12 @@ const SettingsView = ({ user, onChangeUser, onResetData, adminProps }) => {
                     </div>
 
                     {/* App Info */}
-                    <div className="text-center pt-8 pb-4">
-                        <p className="text-gray-400 text-xs">Clinical Calendar</p>
-                        <p className="text-gray-300 text-xs">v1.2.0 (Manual Mode)</p>
+                    <div className="text-center pt-8 pb-8 space-y-1">
+                        <p className="text-gray-300 text-[10px] tracking-widest uppercase font-semibold">Clinical Calendar</p>
+                        <p className="text-gray-400 text-xs flex items-center justify-center gap-1">
+                            Developed by <span className="font-medium text-gray-600">Khalid Said</span>
+                        </p>
+                        <p className="text-gray-300 text-[10px]">v1.2.0</p>
                     </div>
                 </div>
             </div>

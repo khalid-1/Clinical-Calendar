@@ -153,3 +153,21 @@ export const getDaysInMonth = (year, month) => {
 export const getFirstDayOfMonth = (year, month) => {
     return new Date(year, month, 1).getDay();
 };
+
+/**
+ * Calculate time remaining until a target date (assuming 07:30 AM start)
+ * @param {string} targetDateStr - YYYY-MM-DD
+ * @returns {Object|null} { days, hours } or null if past
+ */
+export const getTimeRemaining = (targetDateStr) => {
+    const now = new Date();
+    const target = new Date(targetDateStr + 'T07:00:00'); // Assume 7:00 AM shift start
+
+    const diff = target - now;
+    if (diff <= 0) return null;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    return { days, hours };
+};

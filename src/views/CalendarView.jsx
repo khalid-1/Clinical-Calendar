@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Calendar, Edit2, X, Check, Save } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar, Edit2, X, Check, Save, Trash2 } from 'lucide-react';
 import { getDaysInMonth, getFirstDayOfMonth, getMonthName, getDayNumber, getTodayString } from '../utils/dateHelpers';
 import { getShiftCategory, getHospitalCategory } from '../utils/parseSchedule';
 import { HOSPITALS } from '../utils/constants';
@@ -10,7 +10,7 @@ import { HOSPITALS } from '../utils/constants';
  * @param {Object} props.user - Selected user object
  * @param {Function} props.onUpdateShift - Handler to update shift details
  */
-const CalendarView = ({ user, onUpdateShift }) => {
+const CalendarView = ({ user, onUpdateShift, onMoveShift, onDeleteShift }) => {
     const today = getTodayString();
 
     // Get initial month/year from schedule or current date
@@ -30,7 +30,7 @@ const CalendarView = ({ user, onUpdateShift }) => {
 
     // Editing State
     const [isEditing, setIsEditing] = useState(false);
-    const [editForm, setEditForm] = useState({ hospital: '', code: '' });
+    const [editForm, setEditForm] = useState({ hospital: '', code: '', date: '' });
 
     const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -55,10 +55,15 @@ const CalendarView = ({ user, onUpdateShift }) => {
             if (shift) {
                 setEditForm({
                     hospital: typeof shift === 'object' ? shift.hospital : '',
-                    code: typeof shift === 'object' ? shift.code : String(shift)
+                    code: typeof shift === 'object' ? shift.code : String(shift),
+                    date: selectedDate
                 });
             } else {
-                setEditForm({ hospital: HOSPITALS[0].name, code: '' });
+                setEditForm({
+                    hospital: HOSPITALS[0].name,
+                    code: '',
+                    date: selectedDate
+                });
             }
         }
     }, [selectedDate, user.schedule]);
@@ -87,13 +92,30 @@ const CalendarView = ({ user, onUpdateShift }) => {
         // Find hospital color
         const hospitalObj = HOSPITALS.find(h => h.name === editForm.hospital) || HOSPITALS[0];
 
-        onUpdateShift(user.id, selectedDate, {
+        const details = {
             hospital: editForm.hospital,
             code: editForm.code,
             color: hospitalObj.color
-        });
+        };
+
+        if (editForm.date !== selectedDate) {
+            // Move Shift
+            onMoveShift(user.id, selectedDate, editForm.date, details);
+            setSelectedDate(editForm.date); // Jump to new date
+        } else {
+            // Update in place
+            onUpdateShift(user.id, selectedDate, details);
+        }
 
         setIsEditing(false);
+    };
+
+    const handleDelete = () => {
+        if (selectedDate && onDeleteShift) {
+            onDeleteShift(user.id, selectedDate);
+            setIsEditing(false);
+            setSelectedDate(null);
+        }
     };
 
     const selectedShift = selectedDate ? user.schedule[selectedDate] : null;
@@ -209,9 +231,18 @@ const CalendarView = ({ user, onUpdateShift }) => {
                                 </button>
                             ) : (
                                 <div className="flex items-center gap-2">
+                                    {selectedShift && (
+                                        <button
+                                            onClick={handleDelete}
+                                            className="p-2 bg-red-50 text-red-500 rounded-full hover:bg-red-100 transition-colors mr-2"
+                                            title="Delete Shift"
+                                        >
+                                            <Trash2 size={18} />
+                                        </button>
+                                    )}
                                     <button
                                         onClick={() => setIsEditing(false)}
-                                        className="p-2 bg-gray-100 text-gray-500 rounded-full hover:bg-red-50 hover:text-red-500 transition-colors"
+                                        className="p-2 bg-gray-100 text-gray-500 rounded-full hover:bg-gray-200 transition-colors"
                                     >
                                         <X size={18} />
                                     </button>
@@ -251,6 +282,17 @@ const CalendarView = ({ user, onUpdateShift }) => {
                             </div>
                         ) : (
                             <div className="space-y-4 mt-2">
+                                {/* Date Input */}
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">Date</label>
+                                    <input
+                                        type="date"
+                                        className="block w-full bg-gray-50 border border-gray-200 text-gray-800 text-sm font-bold px-4 py-3 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all placeholder:font-normal"
+                                        value={editForm.date}
+                                        onChange={e => setEditForm({ ...editForm, date: e.target.value })}
+                                    />
+                                </div>
+
                                 <div>
                                     <label className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">Hospital</label>
                                     <div className="relative">
@@ -286,15 +328,20 @@ const CalendarView = ({ user, onUpdateShift }) => {
                 )}
 
                 {/* Legend */}
-                <div className="mt-4 px-2">
-                    <p className="text-xs text-gray-400 font-medium mb-2">Hospital Legend</p>
-                    <div className="flex flex-wrap gap-x-4 gap-y-2">
-                        {HOSPITALS.map(h => (
-                            <div key={h.name} className="flex items-center gap-1.5">
-                                <div className={`w-2.5 h-2.5 rounded-full ${h.color}`} />
-                                <span className="text-[10px] text-gray-500 font-medium">{h.name.replace(' Hospital', '')}</span>
-                            </div>
-                        ))}
+                <div className="mt-6 px-4 mb-4">
+                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-3">Hospital Legend</p>
+                    <div className="grid grid-cols-2 gap-3">
+                        {HOSPITALS.map(h => {
+                            const category = getHospitalCategory(h.name);
+                            return (
+                                <div key={h.name} className="flex items-center gap-2 bg-white/50 p-2 rounded-lg border border-white/40 shadow-sm">
+                                    <div className={`w-3 h-3 rounded-full hospital-${category} shadow-sm`} />
+                                    <span className="text-[11px] text-gray-600 font-semibold leading-tight line-clamp-1">
+                                        {h.name.replace(' Hospital', '').replace('Al Qasimi', 'AQ')}
+                                    </span>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>

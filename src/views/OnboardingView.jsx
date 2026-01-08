@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
-import { Search, ChevronRight, CalendarDays, Users } from 'lucide-react';
+import { Search, ChevronRight, CalendarDays, Users, Pin } from 'lucide-react';
+import { getPinnedUserId, setPinnedUserId, clearPinnedUserId } from '../utils/storage';
 
 /**
  * Onboarding view - Student selection screen
@@ -9,25 +10,56 @@ import { Search, ChevronRight, CalendarDays, Users } from 'lucide-react';
  */
 const OnboardingView = ({ students, onSelectUser }) => {
     const [search, setSearch] = useState('');
+    const [pinnedId, setPinnedId] = useState(() => getPinnedUserId());
+
+    const handlePin = (e, studentId) => {
+        e.stopPropagation(); // Prevent selecting the user when pinning
+        if (pinnedId === studentId) {
+            // Unpin
+            clearPinnedUserId();
+            setPinnedId(null);
+        } else {
+            // Pin this user
+            setPinnedUserId(studentId);
+            setPinnedId(studentId);
+        }
+    };
 
     const filteredStudents = useMemo(() => {
-        if (!search.trim()) return students;
+        let result = students;
 
-        const query = search.toLowerCase();
-        return students.filter(s =>
-            s.fullName.toLowerCase().includes(query) ||
-            s.name.toLowerCase().includes(query) ||
-            s.id.includes(query)
-        );
-    }, [students, search]);
+        if (search.trim()) {
+            const query = search.toLowerCase();
+            result = students.filter(s =>
+                s.fullName.toLowerCase().includes(query) ||
+                s.name.toLowerCase().includes(query) ||
+                s.id.includes(query)
+            );
+        }
+
+        // Sort pinned user to top
+        if (pinnedId) {
+            result = [...result].sort((a, b) => {
+                if (a.id === pinnedId) return -1;
+                if (b.id === pinnedId) return 1;
+                return 0;
+            });
+        }
+
+        return result;
+    }, [students, search, pinnedId]);
 
     return (
         <div className="h-screen w-full flex flex-col gradient-hero overflow-hidden">
             {/* Header - Static */}
             <div className="px-6 pb-4 pt-[calc(env(safe-area-inset-top)+1.5rem)] shrink-0">
                 <div className="text-center space-y-3 mb-6">
-                    <div className="bg-white/20 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto backdrop-blur-sm">
-                        <CalendarDays size={32} className="text-white" />
+                    <div className="w-20 h-20 mx-auto transform hover:scale-105 transition-transform duration-300">
+                        <img
+                            src="/logo.png"
+                            alt="Clinical Calendar Logo"
+                            className="w-full h-full object-contain rounded-[1.5rem] shadow-xl border-2 border-white/30"
+                        />
                     </div>
                     <div>
                         <h1 className="text-2xl font-bold text-white">Who are you?</h1>
@@ -61,30 +93,48 @@ const OnboardingView = ({ students, onSelectUser }) => {
                 <div className="flex-1 overflow-y-auto p-4 pt-6 pb-20 no-scrollbar">
                     <div className="space-y-3">
                         {filteredStudents.length > 0 ? (
-                            filteredStudents.map((student, idx) => (
-                                <button
-                                    key={student.id}
-                                    onClick={() => onSelectUser(student)}
-                                    className={`
-                                      w-full bg-white p-4 rounded-xl flex items-center justify-between 
-                                      hover:bg-blue-50 transition-all duration-200 shadow-sm border border-gray-100
-                                      hover:shadow-md hover:border-blue-100 active:scale-[0.98]
-                                      animate-fade-in-up
-                                    `}
-                                    style={{ animationDelay: `${Math.min(idx * 50, 300)}ms` }}
-                                >
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-sm">
-                                            {student.name.charAt(0)}
+                            filteredStudents.map((student, idx) => {
+                                const isPinned = student.id === pinnedId;
+                                return (
+                                    <button
+                                        key={student.id}
+                                        onClick={() => onSelectUser(student)}
+                                        className={`
+                                          w-full bg-white p-4 rounded-xl flex items-center justify-between 
+                                          hover:bg-blue-50 transition-all duration-200 shadow-sm border
+                                          ${isPinned ? 'border-blue-300 bg-blue-50/50' : 'border-gray-100'}
+                                          hover:shadow-md hover:border-blue-100 active:scale-[0.98]
+                                          animate-fade-in-up
+                                        `}
+                                        style={{ animationDelay: `${Math.min(idx * 50, 300)}ms` }}
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-sm">
+                                                {student.name.charAt(0)}
+                                            </div>
+                                            <div className="text-left">
+                                                <p className="font-semibold text-gray-800">{student.name}</p>
+                                                <p className="text-xs text-gray-500 font-medium">ID: {student.id}</p>
+                                            </div>
                                         </div>
-                                        <div className="text-left">
-                                            <p className="font-semibold text-gray-800">{student.name}</p>
-                                            <p className="text-xs text-gray-500 font-medium">ID: {student.id}</p>
+                                        <div className="flex items-center gap-2">
+                                            <div
+                                                onClick={(e) => handlePin(e, student.id)}
+                                                className={`p-2 rounded-lg transition-all duration-200 ${isPinned
+                                                    ? 'bg-blue-100 text-blue-600'
+                                                    : 'text-gray-300 hover:text-blue-500 hover:bg-gray-100'
+                                                    }`}
+                                            >
+                                                <Pin
+                                                    size={18}
+                                                    className={isPinned ? 'fill-current' : ''}
+                                                />
+                                            </div>
+                                            <ChevronRight size={20} className="text-gray-300" />
                                         </div>
-                                    </div>
-                                    <ChevronRight size={20} className="text-gray-300" />
-                                </button>
-                            ))
+                                    </button>
+                                );
+                            })
                         ) : (
                             <div className="text-center py-16">
                                 <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -102,3 +152,4 @@ const OnboardingView = ({ students, onSelectUser }) => {
 };
 
 export default OnboardingView;
+

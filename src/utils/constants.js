@@ -6,7 +6,6 @@ export const HOSPITALS = [
     { name: 'Dibba Hospital', color: 'bg-green-500' },
     { name: 'Community Health', color: 'bg-cyan-500' },
     { name: 'Al Kuwait Sharjah Hospital', color: 'bg-emerald-400' },
-    { name: 'RAK PHC', color: 'bg-cyan-500' },
 ];
 
 // Common shift types for suggestions

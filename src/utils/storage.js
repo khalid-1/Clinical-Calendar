@@ -6,6 +6,43 @@ const STORAGE_KEYS = {
     SCHEDULE_DATA: 'clinical_schedule_data',
     SELECTED_USER: 'clinical_selected_user',
     SCHEDULE_OVERRIDES: 'clinical_schedule_overrides',
+    PINNED_USER: 'clinical_pinned_user',
+};
+
+/**
+ * Get pinned user ID from localStorage
+ * @returns {string|null} Pinned user ID or null
+ */
+export const getPinnedUserId = () => {
+    try {
+        return localStorage.getItem(STORAGE_KEYS.PINNED_USER);
+    } catch (error) {
+        console.error('Error reading pinned user from localStorage:', error);
+        return null;
+    }
+};
+
+/**
+ * Save pinned user ID to localStorage
+ * @param {string} userId - User ID to pin
+ */
+export const setPinnedUserId = (userId) => {
+    try {
+        localStorage.setItem(STORAGE_KEYS.PINNED_USER, userId);
+    } catch (error) {
+        console.error('Error saving pinned user to localStorage:', error);
+    }
+};
+
+/**
+ * Clear pinned user from localStorage
+ */
+export const clearPinnedUserId = () => {
+    try {
+        localStorage.removeItem(STORAGE_KEYS.PINNED_USER);
+    } catch (error) {
+        console.error('Error clearing pinned user from localStorage:', error);
+    }
 };
 
 /**

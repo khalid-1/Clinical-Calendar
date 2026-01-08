@@ -3,11 +3,25 @@ import { getHospitalFromShift, detectStudentHospitalContext } from './parseSched
 
 /**
  * Process the JSON schedule data into the app's internal format
- * @param {Object} overrides - Manual overrides map { studentId: { date: { hospital, color } } }
- * @returns {Object} Processed data object
+ * @param { Array } rawData - Raw student data array(from JSON or Cloud)
+ * @param { Object } overrides - Manual overrides map { studentId: { date: { hospital, color } } }
+ * @returns { Object } Processed data object
  */
-export const processStaticData = (overrides = {}) => {
-    const processedStudents = scheduleData.map(student => {
+export const processStaticData = (rawData, overrides = {}) => {
+    // Fallback if only overrides are passed (backward compatibility or cleaner API)
+    // If rawData is actually the overrides object (legacy call), swap them
+    let dataToProcess = rawData;
+    let overridesToUse = overrides;
+
+    if (!Array.isArray(rawData) && typeof rawData === 'object') {
+        // Old call signature: processStaticData(overrides)
+        overridesToUse = rawData;
+        dataToProcess = scheduleData;
+    } else if (!dataToProcess) {
+        dataToProcess = scheduleData;
+    }
+
+    const processedStudents = dataToProcess.map(student => {
         // Process name
         const nameParts = student.name.split(' ');
         const displayName = nameParts.slice(0, 2).join(' '); // First two names

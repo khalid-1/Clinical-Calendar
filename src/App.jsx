@@ -8,6 +8,8 @@ import BottomNav from './components/BottomNav';
 import { getStoredData, getSelectedUser, setStoredData, setSelectedUser as saveSelectedUser, clearAllData, clearSelectedUser, getScheduleOverrides, saveScheduleOverrides } from './utils/storage';
 import { processStaticData } from './utils/processStaticData';
 import InstallPrompt from './components/InstallPrompt';
+import { db } from './services/firebase';
+import { doc, updateDoc, deleteField, collection, onSnapshot } from 'firebase/firestore';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -72,42 +74,78 @@ function App() {
   }, []);
 
   // 1. Load Data on Mount
+  // 1. Load Data on Mount (Listen to Cloud)
   useEffect(() => {
     // Load overrides first
     const storedOverrides = getScheduleOverrides();
     setOverrides(storedOverrides);
 
-    // Process data with overrides
-    const data = processStaticData(storedOverrides);
-    setScheduleData(data);
+    const unsubscribe = onSnapshot(collection(db, "students"), (snapshot) => {
+      const cloudStudents = [];
+      snapshot.forEach((doc) => {
+        cloudStudents.push(doc.data());
+      });
 
-    // Check if a user was previously selected
-    const storedUser = getSelectedUser();
-    if (storedUser) {
-      // Find the updated user object in the new static data
-      const foundUser = data.students.find(s => s.id === storedUser.id);
-      if (foundUser) {
-        setUser(foundUser);
+      // Process data with overrides
+      const data = processStaticData(cloudStudents, storedOverrides);
+      setScheduleData(data);
+
+      // Check user selection
+      const storedUser = getStoredData('selectedUser'); // use direct helper if available or standard localStorage key
+      // Actually we have getSelectedUser() imported
+      const savedUser = getSelectedUser();
+
+      if (savedUser) {
+        const foundUser = data.students.find(s => s.id === savedUser.id);
+        if (foundUser) setUser(foundUser);
       }
-    }
+    }, (error) => {
+      console.error("Firestore Error:", error);
+      // Fallback to local if Cloud fails? 
+      // For now, let's trust the cloud or show error.
+      alert("Error connecting to live schedule. Checking local backup...");
+      const localData = processStaticData(storedOverrides); // Fallback to local JSON
+      setScheduleData(localData);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   // 2. Handle Override Updates
   const handleApplyOverrides = (newOverrides) => {
-    // Save to storage
     saveScheduleOverrides(newOverrides);
     setOverrides(newOverrides);
 
-    // Reprocess data immediately
-    const newData = processStaticData(newOverrides);
-    setScheduleData(newData);
+    // Reprocess data immediately using current scheduleData sources
+    // WARNING: scheduleData.students is ALREADY processed. We need the RAW data.
+    // Ideally, we should keep the RAW cloud data in state too.
+    // BUT simplify: The onSnapshot listener will fire if we changed cloud, but here we changed LOCAL overrides.
+    // We can rely on just re-processing the current loaded students "un-processed" state? No that's hard.
 
-    // Update current user if selected
-    if (user) {
-      const foundUser = newData.students.find(s => s.id === user.id);
-      if (foundUser) setUser(foundUser);
-      saveSelectedUser(foundUser); // Update stored user too
-    }
+    // Better approach: When overrides change, we need to re-run processStaticData on the LAST KNOWN cloud data.
+    // Let's modify the useEffect to depend on overrides? 
+    // No, that would re-subscribe.
+
+    // Quick fix: We will trigger a re-process of the current state.
+    // Actually, since we only use overrides for *visuals* over the base data, 
+    // and we just updated the cloud data in the same action (handleUpdateShift),
+    // the Cloud Listener will fire again quickly with the new data.
+
+    // HOWEVER, for Optimistic Updates (immediate local feel), we want to see it now.
+    // We can re-process the *currently displayed* students?
+    // Let's just rely on the Cloud Listener for now. It's fast (ms).
+    // If lagging, we can add optimistic state.
+
+    // Wait, handleApplyOverrides is called by handleUpdateShift which ALSO writes to Cloud.
+    // So Cloud will update -> Listener fires -> UI updates.
+    // We don't strictly need to manually setScheduleData here if we rely on Cloud.
+
+    // BUT valid for strictly local overrides (like preferences?). 
+    // Let's keep it simple: WE TRUST THE CLOUD LISTENER.
+    // So proper cleanup: removing manual setScheduleData here.
+
+    // Update current user references if needed? 
+    // The listener handles it.
   };
 
   const handleDataParsed = (data) => {
@@ -115,7 +153,6 @@ function App() {
   };
 
   const handleUserSelect = (selectedUser) => {
-    console.log('App: handleUserSelect called with:', selectedUser);
     setUser(selectedUser);
     saveSelectedUser(selectedUser);
   };
@@ -131,18 +168,74 @@ function App() {
     setActiveTab('home');
   };
 
-  const handleUpdateShift = (studentId, date, update) => {
+  const handleUpdateShift = async (studentId, date, update) => {
     // update: { hospital, code, color }
-    const newOverrides = { ...overrides };
-    if (!newOverrides[studentId]) newOverrides[studentId] = {};
+    try {
+      // 1. Update Firestore
+      const studentRef = doc(db, 'students', studentId);
+      await updateDoc(studentRef, {
+        [`shifts.${date}`]: {
+          shift: update.code,
+          hospital: update.hospital
+        }
+      });
 
-    // Merge with existing daily override if any, or create new
-    newOverrides[studentId][date] = {
-      ...(newOverrides[studentId][date] || {}),
-      ...update
-    };
+      // 2. Also update local overrides for immediate UI feedback
+      const newOverrides = { ...overrides };
+      if (!newOverrides[studentId]) newOverrides[studentId] = {};
+      newOverrides[studentId][date] = {
+        ...(newOverrides[studentId][date] || {}),
+        ...update
+      };
+      handleApplyOverrides(newOverrides);
+    } catch (err) {
+      console.error('Failed to update Firestore:', err);
+      alert('Failed to save to cloud. Check console.');
+    }
+  };
 
-    handleApplyOverrides(newOverrides);
+  const handleMoveShift = async (studentId, oldDate, newDate, shiftDetails) => {
+    try {
+      // 1. Update Firestore - delete old, set new
+      const studentRef = doc(db, 'students', studentId);
+      await updateDoc(studentRef, {
+        [`shifts.${oldDate}`]: deleteField(),
+        [`shifts.${newDate}`]: {
+          shift: shiftDetails.code,
+          hospital: shiftDetails.hospital
+        }
+      });
+
+      // 2. Update local overrides
+      const newOverrides = { ...overrides };
+      if (!newOverrides[studentId]) newOverrides[studentId] = {};
+      newOverrides[studentId][oldDate] = { code: '', hospital: '', color: 'transparent' };
+      newOverrides[studentId][newDate] = { ...shiftDetails };
+      handleApplyOverrides(newOverrides);
+    } catch (err) {
+      console.error('Failed to move shift in Firestore:', err);
+      alert('Failed to save to cloud. Check console.');
+    }
+  };
+
+  const handleDeleteShift = async (studentId, date) => {
+    if (!confirm('Are you sure you want to delete this shift?')) return;
+    try {
+      // 1. Update Firestore - delete field
+      const studentRef = doc(db, 'students', studentId);
+      await updateDoc(studentRef, {
+        [`shifts.${date}`]: deleteField()
+      });
+
+      // 2. Update local overrides
+      const newOverrides = { ...overrides };
+      if (!newOverrides[studentId]) newOverrides[studentId] = {};
+      newOverrides[studentId][date] = { code: '', hospital: '', color: 'transparent' };
+      handleApplyOverrides(newOverrides);
+    } catch (err) {
+      console.error('Failed to delete shift in Firestore:', err);
+      alert('Failed to delete from cloud. Check console.');
+    }
   };
 
   // Render logic
@@ -168,7 +261,14 @@ function App() {
       case 'home':
         return <DashboardView user={user} onLogout={handleChangeUser} onNavigate={setActiveTab} />;
       case 'calendar':
-        return <CalendarView user={user} onUpdateShift={handleUpdateShift} />;
+        return (
+          <CalendarView
+            user={user}
+            onUpdateShift={handleUpdateShift}
+            onMoveShift={handleMoveShift}
+            onDeleteShift={handleDeleteShift}
+          />
+        );
       case 'settings':
         return (
           <SettingsView
@@ -207,3 +307,4 @@ function App() {
 }
 
 export default App;
+

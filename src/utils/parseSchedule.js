@@ -351,7 +351,7 @@ export const getHospitalFromShift = (shift, contextHospital = null) => {
     }
 
     // 1. Community Health
-    if (code.includes('COMMUNITY')) {
+    if (code.includes('COMMUNITY') || code.includes('HC') || code.includes('PHC')) {
         return { name: 'Community Health', color: 'bg-cyan-500' };
     }
 
@@ -423,6 +423,7 @@ export const getHospitalCategory = (hospitalName) => {
     if (name.includes('women')) return 'aq-women';
     if (name.includes('general') || name.includes('qasimi')) return 'aq-general';
     if (name.includes('abdullah')) return 'abdullah';
+    if (name.includes('kuwait')) return 'al-kuwait';
 
     return 'default';
 };

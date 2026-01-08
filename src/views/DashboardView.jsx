@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
-import { LogOut, Clock, MapPin, AlertCircle, Settings } from 'lucide-react';
+import { LogOut, Clock, MapPin, AlertCircle, Settings, Calendar, Timer } from 'lucide-react';
 import ShiftCard from '../components/ShiftCard';
-import { getTodayString, getUpcomingDays, formatDate, isTomorrow } from '../utils/dateHelpers';
+import { getTodayString, getUpcomingDays, formatDate, isTomorrow, getTimeRemaining } from '../utils/dateHelpers';
+import { getHospitalCategory } from '../utils/parseSchedule';
 
 /**
  * Dashboard view - Main app screen showing today's shift and upcoming schedule
@@ -25,6 +26,15 @@ const DashboardView = ({ user, onLogout, onNavigate }) => {
         // Filter out past dates, start from tomorrow
         return getUpcomingDays(user.schedule, activeDate, 14);
     }, [user.schedule, activeDate]);
+
+    // Find next actual rotation (skipping OFF days)
+    const nextRotation = useMemo(() => {
+        // Look up to 30 days ahead for the next shift
+        const candidates = getUpcomingDays(user.schedule, activeDate, 30);
+        return candidates.find(c => c.shift.code && c.shift.code.toLowerCase() !== 'off' && c.shift.code.trim() !== '');
+    }, [user.schedule, activeDate]);
+
+    const timeRemaining = nextRotation ? getTimeRemaining(nextRotation.date) : null;
 
     return (
         <div className="h-screen flex flex-col bg-gray-50 overflow-hidden">
@@ -71,6 +81,38 @@ const DashboardView = ({ user, onLogout, onNavigate }) => {
                     isToday={!isDemo}
                     large
                 />
+
+                {/* Next Rotation Countdown (If not working today or if off duty) */}
+                {nextRotation && timeRemaining && (
+                    <div className="mt-6 mb-2">
+                        <div className="flex items-center gap-2 mb-3 px-1">
+                            <Timer size={18} className="text-blue-600" />
+                            <h3 className="font-bold text-gray-800 text-lg">Next Rotation</h3>
+                        </div>
+
+                        <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
+                            {/* Decorative circles */}
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+
+                            <div className="flex justify-between items-end relative z-10">
+                                <div>
+                                    <p className="text-blue-100 text-sm font-medium mb-1">
+                                        {formatDate(nextRotation.date)} &bull; 7:00 AM
+                                    </p>
+                                    <h4 className="text-2xl font-bold mb-1">{nextRotation.shift.code}</h4>
+                                    <p className="text-white/80 text-sm flex items-center gap-1.5">
+                                        <MapPin size={14} />
+                                        {nextRotation.shift.hospital}
+                                    </p>
+                                </div>
+                                <div className="text-right bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/10">
+                                    <p className="text-xl font-bold">{timeRemaining.days}d {timeRemaining.hours}h</p>
+                                    <p className="text-[10px] uppercase tracking-wider opacity-80">Remaining</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
 
                 {/* Upcoming Schedule */}
