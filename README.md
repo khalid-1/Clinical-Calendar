@@ -1,16 +1,54 @@
-# React + Vite
+# 🏥 Clinical Calendar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Clinical Calendar** is a modern, mobile-first Progressive Web App (PWA) designed to help medical students and residents manage their rotation schedules with ease.
 
-Currently, two official plugins are available:
+Built with a focus on simplicity, speed, and a premium "native app" feel, it replaces improved spreadsheets with a clean, color-coded digital dashboard.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Key Features
 
-## React Compiler
+### 📅 Smart Schedule Management
+*   **Personalized Dashboard:** Instantly see your current shift, upcoming rotations, and off-days.
+*   **Visual Calendar:** A full monthly view with color-coded dots representing different hospitals.
+*   **Excel Import:** Admin tools allow for bulk importing of student schedules directly from Excel/CSV master sheets.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🎨 Hospital-Based Color Coding
+Shifts are automatically categorized and styled by hospital location for quick visual recognition:
+*   **🔵 Community Health:** Blue/Cyan
+*   **🟢 Dibba Hospital:** Dark Green
+*   **🟡 Saqr Hospital:** Amber
+*   **🟦 Al Qasimi General:** Royal Blue
+*   **💗 Al Qasimi Women & Child:** Rose
+*   **🟣 Abdullah Bin Omran:** Purple
 
-## Expanding the ESLint configuration
+### 📱 Native PWA Experience
+*   **Installable:** Add to your Home Screen for a fullscreen, app-like experience on iOS and Android.
+*   **Offline Ready:** Access your schedule anytime, even without an internet connection.
+*   **Smooth UX:** Optimized scrolling, touch interactions, and rigid layouts that feel just like a native app.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🛠 Admin & Power Tools
+*   **Bulk Updates:** Modify schedules for groups of students instantly.
+*   **Override System:** Manage exceptions and individual schedule changes.
+*   **Data Portability:** Export data to JSON for backup or transfer.
+
+## 🚀 Tech Stack
+*   **Frontend:** React, Vite, TailwindCSS
+*   **Icons:** Lucide React
+*   **Storage:** LocalStorage (Client-side persistence)
+
+## 📦 Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/clinical-calendar.git
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Run the development server:
+    ```bash
+    npm run dev
+    ```
+
+## 📝 License
+This project is for educational and clinical management usage.
