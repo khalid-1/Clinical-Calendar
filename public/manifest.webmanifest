@@ -1,6 +1,6 @@
 {
-    "name": "Clinical Calendar",
-    "short_name": "Clinical",
+    "name": "Clinical Cal",
+    "short_name": "Clinical Cal",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#ffffff",
