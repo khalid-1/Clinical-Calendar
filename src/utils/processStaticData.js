@@ -73,6 +73,9 @@ export const processStaticData = (overrides = {}) => {
             name: displayName,
             schedule: finalSchedule
         };
+    }).sort((a, b) => {
+        // Sort by ID ascending (numeric comparison)
+        return parseInt(a.id, 10) - parseInt(b.id, 10);
     });
 
     // Calculate global date range
