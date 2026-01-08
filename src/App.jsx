@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import UploadView from './views/UploadView';
+import React, { useState, useEffect, useMemo } from 'react';
 import OnboardingView from './views/OnboardingView';
 import DashboardView from './views/DashboardView';
 import CalendarView from './views/CalendarView';
@@ -50,33 +49,46 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+function LoadingScreen() {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-700 via-blue-800 to-indigo-950 p-6 text-white overflow-hidden">
+      <div className="relative">
+        <div className="w-20 h-20 bg-white/20 rounded-3xl backdrop-blur-md animate-pulse"></div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+        </div>
+      </div>
+      <p className="mt-8 text-blue-100/60 font-medium tracking-widest text-[10px] uppercase animate-pulse">
+        Initializing Clinical Cal
+      </p>
+    </div>
+  );
+}
+
 function App() {
   const [scheduleData, setScheduleData] = useState(null);
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('home');
   const [overrides, setOverrides] = useState({});
-  const [isStandalone, setIsStandalone] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(null); // Use null for initial state to avoid flash
   const [bypassInstall, setBypassInstall] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   // 0. Check Standalone Mode
   useEffect(() => {
     const checkStandalone = () => {
       const isIOSStandalone = window.navigator.standalone === true;
       const isAndroidStandalone = window.matchMedia('(display-mode: standalone)').matches;
-      // Allow dev environment (localhost) to bypass potentially, or just use the bypass button
-      // For now, stricly check standalone
       setIsStandalone(isIOSStandalone || isAndroidStandalone);
     };
 
     checkStandalone();
-    window.addEventListener('resize', checkStandalone); // Sometimes mode changes on rotation/resize? Unlikely but safe.
+    window.addEventListener('resize', checkStandalone);
     return () => window.removeEventListener('resize', checkStandalone);
   }, []);
 
-  // 1. Load Data on Mount
-  // 1. Load Data on Mount (Listen to Cloud)
+  // 1. Data Loading Logic
   useEffect(() => {
-    // Load overrides first
     const storedOverrides = getScheduleOverrides();
     setOverrides(storedOverrides);
 
@@ -86,70 +98,29 @@ function App() {
         cloudStudents.push(doc.data());
       });
 
-      // Process data with overrides
       const data = processStaticData(cloudStudents, storedOverrides);
       setScheduleData(data);
 
-      // Check user selection
-      const storedUser = getStoredData('selectedUser'); // use direct helper if available or standard localStorage key
-      // Actually we have getSelectedUser() imported
       const savedUser = getSelectedUser();
-
       if (savedUser) {
         const foundUser = data.students.find(s => s.id === savedUser.id);
         if (foundUser) setUser(foundUser);
       }
+
+      setIsInitialLoad(false);
     }, (error) => {
       console.error("Firestore Error:", error);
-      // Fallback to local if Cloud fails? 
-      // For now, let's trust the cloud or show error.
-      alert("Error connecting to live schedule. Checking local backup...");
-      const localData = processStaticData(storedOverrides); // Fallback to local JSON
+      const localData = processStaticData(storedOverrides);
       setScheduleData(localData);
+      setIsInitialLoad(false);
     });
 
     return () => unsubscribe();
   }, []);
 
-  // 2. Handle Override Updates
   const handleApplyOverrides = (newOverrides) => {
     saveScheduleOverrides(newOverrides);
     setOverrides(newOverrides);
-
-    // Reprocess data immediately using current scheduleData sources
-    // WARNING: scheduleData.students is ALREADY processed. We need the RAW data.
-    // Ideally, we should keep the RAW cloud data in state too.
-    // BUT simplify: The onSnapshot listener will fire if we changed cloud, but here we changed LOCAL overrides.
-    // We can rely on just re-processing the current loaded students "un-processed" state? No that's hard.
-
-    // Better approach: When overrides change, we need to re-run processStaticData on the LAST KNOWN cloud data.
-    // Let's modify the useEffect to depend on overrides? 
-    // No, that would re-subscribe.
-
-    // Quick fix: We will trigger a re-process of the current state.
-    // Actually, since we only use overrides for *visuals* over the base data, 
-    // and we just updated the cloud data in the same action (handleUpdateShift),
-    // the Cloud Listener will fire again quickly with the new data.
-
-    // HOWEVER, for Optimistic Updates (immediate local feel), we want to see it now.
-    // We can re-process the *currently displayed* students?
-    // Let's just rely on the Cloud Listener for now. It's fast (ms).
-    // If lagging, we can add optimistic state.
-
-    // Wait, handleApplyOverrides is called by handleUpdateShift which ALSO writes to Cloud.
-    // So Cloud will update -> Listener fires -> UI updates.
-    // We don't strictly need to manually setScheduleData here if we rely on Cloud.
-
-    // BUT valid for strictly local overrides (like preferences?). 
-    // Let's keep it simple: WE TRUST THE CLOUD LISTENER.
-    // So proper cleanup: removing manual setScheduleData here.
-
-    // Update current user references if needed? 
-    // The listener handles it.
-  };
-
-  const handleDataParsed = (data) => {
-    setScheduleData(data);
   };
 
   const handleUserSelect = (selectedUser) => {
@@ -169,9 +140,7 @@ function App() {
   };
 
   const handleUpdateShift = async (studentId, date, update) => {
-    // update: { hospital, code, color }
     try {
-      // 1. Update Firestore
       const studentRef = doc(db, 'students', studentId);
       await updateDoc(studentRef, {
         [`shifts.${date}`]: {
@@ -180,23 +149,17 @@ function App() {
         }
       });
 
-      // 2. Also update local overrides for immediate UI feedback
       const newOverrides = { ...overrides };
       if (!newOverrides[studentId]) newOverrides[studentId] = {};
-      newOverrides[studentId][date] = {
-        ...(newOverrides[studentId][date] || {}),
-        ...update
-      };
+      newOverrides[studentId][date] = { ...update };
       handleApplyOverrides(newOverrides);
     } catch (err) {
       console.error('Failed to update Firestore:', err);
-      alert('Failed to save to cloud. Check console.');
     }
   };
 
   const handleMoveShift = async (studentId, oldDate, newDate, shiftDetails) => {
     try {
-      // 1. Update Firestore - delete old, set new
       const studentRef = doc(db, 'students', studentId);
       await updateDoc(studentRef, {
         [`shifts.${oldDate}`]: deleteField(),
@@ -206,7 +169,6 @@ function App() {
         }
       });
 
-      // 2. Update local overrides
       const newOverrides = { ...overrides };
       if (!newOverrides[studentId]) newOverrides[studentId] = {};
       newOverrides[studentId][oldDate] = { code: '', hospital: '', color: 'transparent' };
@@ -214,43 +176,34 @@ function App() {
       handleApplyOverrides(newOverrides);
     } catch (err) {
       console.error('Failed to move shift in Firestore:', err);
-      alert('Failed to save to cloud. Check console.');
     }
   };
 
   const handleDeleteShift = async (studentId, date) => {
     if (!confirm('Are you sure you want to delete this shift?')) return;
     try {
-      // 1. Update Firestore - delete field
       const studentRef = doc(db, 'students', studentId);
       await updateDoc(studentRef, {
         [`shifts.${date}`]: deleteField()
       });
 
-      // 2. Update local overrides
       const newOverrides = { ...overrides };
       if (!newOverrides[studentId]) newOverrides[studentId] = {};
       newOverrides[studentId][date] = { code: '', hospital: '', color: 'transparent' };
       handleApplyOverrides(newOverrides);
     } catch (err) {
       console.error('Failed to delete shift in Firestore:', err);
-      alert('Failed to delete from cloud. Check console.');
     }
   };
 
-  // Render logic
   const renderContent = () => {
-    if (!scheduleData) {
-      return <UploadView onDataParsed={handleDataParsed} />;
-    }
-
     if (!user) {
       return (
         <OnboardingView
           students={scheduleData.students}
           onSelectUser={handleUserSelect}
           onBack={() => {
-            setScheduleData(null);
+            setUser(null);
             clearAllData();
           }}
         />
@@ -288,20 +241,28 @@ function App() {
     }
   };
 
+  // Wait for initial data and standalone detection
+  if (isInitialLoad || isStandalone === null) {
+    return <LoadingScreen />;
+  }
+
+  // Show installation prompt if not standalone and not bypassed
+  if (!isStandalone && !bypassInstall) {
+    return (
+      <ErrorBoundary>
+        <InstallPrompt onBypass={() => setBypassInstall(true)} />
+      </ErrorBoundary>
+    );
+  }
+
   return (
     <ErrorBoundary>
-      {(!isStandalone && !bypassInstall) ? (
-        <InstallPrompt onBypass={() => setBypassInstall(true)} />
-      ) : (
-        <div className="max-w-md mx-auto bg-white min-h-screen shadow-2xl overflow-hidden relative">
-          {renderContent()}
-
-          {/* Show Bottom Nav only when user is logged in */}
-          {user && scheduleData && (
-            <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
-          )}
-        </div>
-      )}
+      <div className="max-w-md mx-auto bg-white min-h-screen shadow-2xl overflow-hidden relative">
+        {renderContent()}
+        {user && scheduleData && (
+          <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+        )}
+      </div>
     </ErrorBoundary>
   );
 }
