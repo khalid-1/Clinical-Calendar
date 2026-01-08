@@ -1,8 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Calendar, Edit2, X, Check, Save, Trash2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar, Edit2, X, Check, Save, Trash2, Share } from 'lucide-react';
 import { getDaysInMonth, getFirstDayOfMonth, getMonthName, getDayNumber, getTodayString } from '../utils/dateHelpers';
 import { getShiftCategory, getHospitalCategory } from '../utils/scheduleUtils';
 import { HOSPITALS } from '../utils/constants';
+import { generateICS, downloadCalendar } from '../utils/calendarExport';
 
 /**
  * Calendar view - Full month calendar display
@@ -12,6 +13,11 @@ import { HOSPITALS } from '../utils/constants';
  */
 const CalendarView = ({ user, onUpdateShift, onMoveShift, onDeleteShift }) => {
     const today = getTodayString();
+
+    const handleExport = () => {
+        const ics = generateICS(user.name, user.schedule);
+        downloadCalendar(user.name, ics);
+    };
 
     // Get initial month/year from schedule or current date
     const initialDate = useMemo(() => {
@@ -134,6 +140,14 @@ const CalendarView = ({ user, onUpdateShift, onMoveShift, onDeleteShift }) => {
                             <p className="text-blue-200 text-sm">View your full schedule</p>
                         </div>
                     </div>
+                    <button
+                        onClick={handleExport}
+                        className="bg-white/20 p-2.5 rounded-xl hover:bg-white/30 transition-colors active:scale-95 flex items-center gap-2"
+                        title="Export Calendar"
+                    >
+                        <Share size={18} />
+                        <span className="text-xs font-bold pr-1">Export</span>
+                    </button>
                 </div>
             </div>
 
@@ -345,7 +359,7 @@ const CalendarView = ({ user, onUpdateShift, onMoveShift, onDeleteShift }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

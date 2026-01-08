@@ -99,10 +99,10 @@ const DashboardView = ({ user, onLogout, onNavigate }) => {
                                     <p className="text-blue-100 text-sm font-medium mb-1">
                                         {formatDate(nextRotation.date)} &bull; 7:00 AM
                                     </p>
-                                    <h4 className="text-2xl font-bold mb-1">{nextRotation.shift.code}</h4>
-                                    <p className="text-white/80 text-sm flex items-center gap-1.5">
+                                    <h4 className="text-2xl font-bold mb-1">{nextRotation.shift.hospital}</h4>
+                                    <p className="text-white/80 text-sm flex items-center gap-1.5 uppercase font-bold tracking-wider">
                                         <MapPin size={14} />
-                                        {nextRotation.shift.hospital}
+                                        {nextRotation.shift.code}
                                     </p>
                                 </div>
                                 <div className="text-right bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/10">

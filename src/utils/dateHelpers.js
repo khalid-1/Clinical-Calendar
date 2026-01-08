@@ -171,3 +171,15 @@ export const getTimeRemaining = (targetDateStr) => {
 
     return { days, hours };
 };
+
+/**
+ * Format a date string and time for ICS format
+ * @param {string} dateStr - YYYY-MM-DD
+ * @param {string} timeStr - HH:mm
+ * @returns {string} ICS formatted date (YYYYMMDDTHHmmSS)
+ */
+export const formatToICSDate = (dateStr, timeStr = "07:00") => {
+    const cleanDate = dateStr.replace(/-/g, '');
+    const cleanTime = timeStr.replace(/:/g, '');
+    return `${cleanDate}T${cleanTime}00`;
+};

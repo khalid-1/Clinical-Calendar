@@ -33,11 +33,11 @@ const ShiftCard = ({ date, shift, isToday, isTomorrow, large = false }) => {
                 <div className="text-center py-6">
                     <div className="mb-2">
                         <p className="text-xs text-blue-500 font-bold uppercase tracking-widest mb-1">
-                            {isWorking ? hospital : 'Off Duty'}
+                            {isWorking ? code : 'Off Duty'}
                         </p>
                         <h2 className={`text-4xl font-extrabold ${isWorking ? 'text-gray-800' : 'text-gray-400'
                             }`}>
-                            {isWorking ? code : 'Relax'}
+                            {isWorking ? hospital : 'Relax'}
                         </h2>
                     </div>
                     <p className={`text-sm flex items-center justify-center gap-2 ${isWorking ? 'text-green-500' : 'text-gray-400'
@@ -45,7 +45,7 @@ const ShiftCard = ({ date, shift, isToday, isTomorrow, large = false }) => {
                         {isWorking ? (
                             <>
                                 <MapPin size={16} />
-                                <span>{hospital}</span>
+                                <span>{code}</span>
                             </>
                         ) : (
                             <>
@@ -77,9 +77,9 @@ const ShiftCard = ({ date, shift, isToday, isTomorrow, large = false }) => {
                     </span>
                 </div>
                 <div>
-                    <p className="font-bold text-gray-800">{code || 'Off'}</p>
+                    <p className="font-bold text-gray-800">{hospital || (isWorking ? '' : 'Off')}</p>
                     <p className="text-xs text-gray-500 truncate max-w-[150px]">
-                        {isWorking ? hospital : 'No rotation'}
+                        {isWorking ? code : 'No rotation'}
                     </p>
                 </div>
             </div>
