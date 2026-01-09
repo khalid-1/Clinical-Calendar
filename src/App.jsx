@@ -66,58 +66,76 @@ function LoadingScreen() {
   );
 }
 
-function App() {
-  const [scheduleData, setScheduleData] = useState(null);
-  const [user, setUser] = useState(null);
+const App = () => {
+  // 1. Synchronous Initialization for Instant Load
+  const [overrides, setOverrides] = useState(() => getScheduleOverrides());
+
+  const [scheduleData, setScheduleData] = useState(() => processStaticData(getScheduleOverrides()));
+
+  const [user, setUser] = useState(() => {
+    const savedUser = getSelectedUser();
+    if (savedUser && scheduleData) {
+      // We need to find the user in the *current* scheduleData (which is local at this point)
+      const localData = processStaticData(getScheduleOverrides());
+      return localData.students.find(s => s.id === savedUser.id) || null;
+    }
+    return null;
+  });
+
   const [activeTab, setActiveTab] = useState('home');
-  const [overrides, setOverrides] = useState({});
-  const [isStandalone, setIsStandalone] = useState(null); // Use null for initial state to avoid flash
+
+  // Initialize standalone check synchronously to avoid flash
+  const [isStandalone, setIsStandalone] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const isIOS = window.navigator.standalone === true;
+      const isAndroid = window.matchMedia('(display-mode: standalone)').matches;
+      return isIOS || isAndroid;
+    }
+    return false;
+  });
+
   const [bypassInstall, setBypassInstall] = useState(false);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [isInitialLoad, setIsInitialLoad] = useState(false); // Start ready!
   const [deleteConfirm, setDeleteConfirm] = useState({ isOpen: false, studentId: null, date: null });
 
-  // 0. Check Standalone Mode
+  // 2. Background Data Updates
   useEffect(() => {
+    // Listen for resize to update standalone status (rare case but good practice)
     const checkStandalone = () => {
       const isIOSStandalone = window.navigator.standalone === true;
       const isAndroidStandalone = window.matchMedia('(display-mode: standalone)').matches;
       setIsStandalone(isIOSStandalone || isAndroidStandalone);
     };
-
-    checkStandalone();
     window.addEventListener('resize', checkStandalone);
-    return () => window.removeEventListener('resize', checkStandalone);
-  }, []);
 
-  // 1. Data Loading Logic
-  useEffect(() => {
-    const storedOverrides = getScheduleOverrides();
-    setOverrides(storedOverrides);
-
+    // Live Firestore Updates
     const unsubscribe = onSnapshot(collection(db, "students"), (snapshot) => {
       const cloudStudents = [];
       snapshot.forEach((doc) => {
         cloudStudents.push(doc.data());
       });
 
-      const data = processStaticData(cloudStudents, storedOverrides);
+      // Update with fresh cloud data
+      // We use the *current* overrides ref or get them again to be safe
+      const currentOverrides = getScheduleOverrides();
+      const data = processStaticData(cloudStudents, currentOverrides);
       setScheduleData(data);
 
+      // Update selected user object if it exists to reflect new shifts
       const savedUser = getSelectedUser();
       if (savedUser) {
         const foundUser = data.students.find(s => s.id === savedUser.id);
         if (foundUser) setUser(foundUser);
       }
-
-      setIsInitialLoad(false);
     }, (error) => {
-      console.error("Firestore Error:", error);
-      const localData = processStaticData(storedOverrides);
-      setScheduleData(localData);
-      setIsInitialLoad(false);
+      console.warn("Using local data (Offline/Error):", error.message);
+      // We already loaded local data, so no need to do anything drastic here
     });
 
-    return () => unsubscribe();
+    return () => {
+      window.removeEventListener('resize', checkStandalone);
+      unsubscribe();
+    };
   }, []);
 
   const handleApplyOverrides = (newOverrides) => {
