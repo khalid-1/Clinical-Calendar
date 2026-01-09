@@ -44,23 +44,26 @@ const DashboardView = ({ user, onLogout, onNavigate }) => {
     return (
         <div className="h-screen flex flex-col bg-gray-50 overflow-hidden">
             {/* Header - Fixed Top */}
-            <div className="gradient-hero text-white px-6 pb-8 pt-[max(4rem,calc(env(safe-area-inset-top)+1rem))] rounded-b-[2rem] shadow-md z-40 shrink-0">
-                <div className="flex justify-between items-start">
+            <div className="bg-blue-600 text-white px-6 pb-8 pt-[max(4rem,calc(env(safe-area-inset-top)+1rem))] rounded-b-[2.5rem] shadow-xl z-40 shrink-0 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/50 to-indigo-600/50 pointer-events-none"></div>
+                <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div className="flex justify-between items-start relative z-10">
                     <div>
-                        <p className="text-blue-200 text-sm mb-1">Welcome back,</p>
-                        <h1 className="text-2xl font-bold">{user.name}</h1>
+                        <p className="text-blue-100 text-sm font-medium mb-1 tracking-wide uppercase text-[10px]">Welcome back</p>
+                        <h1 className="text-3xl font-bold tracking-tight">{user.name}</h1>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-3">
                         <button
                             onClick={() => onNavigate('settings')}
-                            className="bg-white/20 p-3 rounded-xl hover:bg-white/30 transition-smooth touch-button"
+                            className="bg-white/10 backdrop-blur-md p-3 rounded-2xl hover:bg-white/20 transition-all active:scale-95 touch-button border border-white/5"
                             aria-label="Settings"
                         >
                             <Settings size={20} />
                         </button>
                         <button
                             onClick={onLogout}
-                            className="bg-white/20 p-3 rounded-xl hover:bg-white/30 transition-smooth touch-button"
+                            className="bg-white/10 backdrop-blur-md p-3 rounded-2xl hover:bg-white/20 transition-all active:scale-95 touch-button border border-white/5"
                             aria-label="Change user"
                         >
                             <LogOut size={20} />
@@ -69,9 +72,9 @@ const DashboardView = ({ user, onLogout, onNavigate }) => {
                 </div>
 
                 {/* Status Badge */}
-                <div className="mt-4 flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${isWorking ? 'bg-green-400 animate-pulse-soft' : 'bg-gray-400'}`} />
-                    <span className="text-blue-100 text-sm">
+                <div className="mt-5 flex items-center gap-3 relative z-10">
+                    <div className={`w-2.5 h-2.5 rounded-full ring-4 ring-white/10 ${isWorking ? 'bg-emerald-400 animate-pulse-soft' : 'bg-gray-400'}`} />
+                    <span className="text-blue-50 text-sm font-medium tracking-wide">
                         {isWorking ? 'On duty today' : 'Off duty'}
                     </span>
                 </div>
@@ -89,31 +92,36 @@ const DashboardView = ({ user, onLogout, onNavigate }) => {
 
                 {/* Next Rotation Countdown (If not working today or if off duty) */}
                 {nextRotation && timeRemaining && (
-                    <div className="mt-6 mb-2">
-                        <div className="flex items-center gap-2 mb-3 px-1">
-                            <Timer size={18} className="text-blue-600" />
-                            <h3 className="font-bold text-gray-800 text-lg">Next Rotation</h3>
+                    <div className="mt-8 mb-4">
+                        <div className="flex items-center gap-2 mb-4 px-1">
+                            <div className="p-1.5 bg-blue-100/50 rounded-lg">
+                                <Timer size={16} className="text-blue-600" />
+                            </div>
+                            <h3 className="font-bold text-gray-900 text-lg tracking-tight">Next Rotation</h3>
                         </div>
 
-                        <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
+                        <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-6 text-white shadow-xl shadow-blue-500/20 relative overflow-hidden group">
                             {/* Decorative circles */}
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+                            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/15 transition-colors duration-500"></div>
+                            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-indigo-500/30 rounded-full blur-2xl pointer-events-none"></div>
 
                             {/* Countdown badge at top-right */}
-                            <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/10">
-                                <p className="text-sm font-bold">{timeRemaining.days}d {timeRemaining.hours}h</p>
+                            <div className="absolute top-5 right-5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 shadow-sm">
+                                <p className="text-sm font-bold tracking-tight">{timeRemaining.days}d {timeRemaining.hours}h</p>
                             </div>
 
                             {/* Main content - stacked vertically */}
-                            <div className="relative z-10 pr-20">
-                                <p className="text-blue-100 text-sm font-medium mb-2">
+                            <div className="relative z-10 pr-16">
+                                <p className="text-blue-100 text-xs font-semibold uppercase tracking-widest mb-3">
                                     {formatDate(nextRotation.date)} &bull; 7:00 AM
                                 </p>
-                                <h4 className="text-lg font-bold leading-tight mb-2">{nextRotation.shift.hospital}</h4>
-                                <p className="text-white/80 text-sm flex items-center gap-1.5 uppercase font-bold tracking-wider">
-                                    <MapPin size={14} />
-                                    {nextRotation.shift.code}
-                                </p>
+                                <h4 className="text-xl md:text-2xl font-bold leading-tight mb-3 line-clamp-2" title={nextRotation.shift.hospital}>
+                                    {nextRotation.shift.hospital}
+                                </h4>
+                                <div className="inline-flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-lg border border-white/5">
+                                    <MapPin size={14} className="text-blue-200" />
+                                    <span className="text-sm font-bold tracking-wider uppercase">{nextRotation.shift.code}</span>
+                                </div>
                             </div>
                         </div>
                     </div>

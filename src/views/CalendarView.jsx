@@ -127,58 +127,62 @@ const CalendarView = ({ user, onUpdateShift, onMoveShift, onDeleteShift }) => {
     const selectedShift = selectedDate ? user.schedule[selectedDate] : null;
 
     return (
-        <div className="min-h-screen pb-24 bg-gray-50">
-            {/* Header */}
-            <div className="gradient-hero text-white px-6 pb-8 pt-[calc(env(safe-area-inset-top)+1.5rem)]">
-                <div className="flex items-center justify-between">
+        <div className="h-screen flex flex-col bg-gray-50 overflow-hidden">
+            {/* Header - Fixed Top */}
+            <div className="bg-blue-600 text-white px-6 pb-8 pt-[max(4rem,calc(env(safe-area-inset-top)+1rem))] rounded-b-[2.5rem] shadow-xl z-40 shrink-0 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/50 to-indigo-600/50 pointer-events-none"></div>
+                <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div className="flex items-center justify-between relative z-10">
                     <div className="flex items-center gap-3">
-                        <div className="bg-white/20 p-2 rounded-xl">
-                            <Calendar size={24} />
+                        <div className="bg-white/10 backdrop-blur-md p-2.5 rounded-xl border border-white/10 shadow-sm">
+                            <Calendar size={22} className="text-blue-50" />
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold">Calendar</h1>
-                            <p className="text-blue-200 text-sm">View your full schedule</p>
+                            <h1 className="text-xl font-bold tracking-tight">Calendar</h1>
+                            <p className="text-blue-100/80 text-sm font-medium">Full schedule view</p>
                         </div>
                     </div>
                     <button
                         onClick={handleExport}
-                        className="bg-white/20 p-2.5 rounded-xl hover:bg-white/30 transition-colors active:scale-95 flex items-center gap-2"
+                        className="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-xl hover:bg-white/20 transition-all active:scale-95 flex items-center gap-2 border border-white/10 shadow-sm group"
                         title="Export Calendar"
                     >
-                        <Share size={18} />
-                        <span className="text-xs font-bold pr-1">Export</span>
+                        <Share size={16} className="group-hover:scale-110 transition-transform" />
+                        <span className="text-xs font-bold tracking-wide uppercase">Export</span>
                     </button>
                 </div>
             </div>
 
-            {/* Calendar Card */}
-            <div className="px-4 -mt-4">
-                <div className="glass-card rounded-2xl p-4 shadow-lg">
+            {/* Main Content - Scrollable */}
+            <div className="flex-1 overflow-y-auto px-4 pt-6 pb-24 overscroll-contain">
+                {/* Calendar Card */}
+                <div className="bg-white rounded-3xl p-5 shadow-xl shadow-gray-200/50 border border-gray-100">
                     {/* Month Navigation */}
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center justify-between mb-6">
                         <button
                             onClick={goToPrevMonth}
-                            className="p-2 hover:bg-gray-100 rounded-lg transition-smooth touch-button"
+                            className="p-2 hover:bg-gray-50 rounded-xl transition-all active:scale-90 border border-transparent hover:border-gray-100"
                         >
-                            <ChevronLeft size={24} className="text-gray-600" />
+                            <ChevronLeft size={24} className="text-gray-400 hover:text-gray-800 transition-colors" />
                         </button>
-                        <h2 className="text-lg font-bold text-gray-800">
+                        <h2 className="text-xl font-bold text-gray-800 tracking-tight">
                             {monthData.monthName}
                         </h2>
                         <button
                             onClick={goToNextMonth}
-                            className="p-2 hover:bg-gray-100 rounded-lg transition-smooth touch-button"
+                            className="p-2 hover:bg-gray-50 rounded-xl transition-all active:scale-90 border border-transparent hover:border-gray-100"
                         >
-                            <ChevronRight size={24} className="text-gray-600" />
+                            <ChevronRight size={24} className="text-gray-400 hover:text-gray-800 transition-colors" />
                         </button>
                     </div>
 
                     {/* Week Day Headers */}
-                    <div className="grid grid-cols-7 gap-1 mb-2">
+                    <div className="grid grid-cols-7 gap-1 mb-3">
                         {weekDays.map(day => (
                             <div
                                 key={day}
-                                className="text-center text-xs font-semibold text-gray-400 py-2"
+                                className="text-center text-[10px] font-bold text-gray-400 uppercase tracking-wider py-1"
                             >
                                 {day}
                             </div>
@@ -275,10 +279,23 @@ const CalendarView = ({ user, onUpdateShift, onMoveShift, onDeleteShift }) => {
                                 <div>
                                     {selectedShift ? (
                                         <>
-                                            <p className="text-xs text-blue-500 font-bold uppercase tracking-wider mb-1">
-                                                {typeof selectedShift === 'object' ? selectedShift.hospital : ''}
+                                            <p className={`text-sm font-bold uppercase tracking-wider mb-0.5 ${(() => {
+                                                    const cat = typeof selectedShift === 'object' ? getHospitalCategory(selectedShift.hospital) : 'default';
+                                                    const colors = {
+                                                        'saqr': 'text-yellow-600',
+                                                        'dibba': 'text-emerald-600',
+                                                        'al-kuwait': 'text-teal-600',
+                                                        'aq-general': 'text-blue-600',
+                                                        'aq-women': 'text-pink-600',
+                                                        'abdullah': 'text-purple-600',
+                                                        'community': 'text-cyan-600'
+                                                    };
+                                                    return colors[cat] || 'text-blue-500';
+                                                })()
+                                                }`}>
+                                                {typeof selectedShift === 'object' ? selectedShift.hospital.replace(' Hospital', '') : ''}
                                             </p>
-                                            <p className="text-2xl font-black text-gray-800">
+                                            <p className="text-lg font-bold text-gray-500">
                                                 {typeof selectedShift === 'object' ? selectedShift.code : selectedShift}
                                             </p>
                                         </>
@@ -286,13 +303,6 @@ const CalendarView = ({ user, onUpdateShift, onMoveShift, onDeleteShift }) => {
                                         <p className="text-xl font-bold text-gray-400">No rotation</p>
                                     )}
                                 </div>
-                                {selectedShift && (
-                                    <div className={`px-4 py-2 rounded-xl hospital-${getHospitalCategory(selectedShift.hospital)} shadow-sm`}>
-                                        <span className="text-white text-sm font-bold">
-                                            {typeof selectedShift === 'object' ? selectedShift.code : selectedShift}
-                                        </span>
-                                    </div>
-                                )}
                             </div>
                         ) : (
                             <div className="space-y-4 mt-2">
@@ -343,15 +353,36 @@ const CalendarView = ({ user, onUpdateShift, onMoveShift, onDeleteShift }) => {
 
                 {/* Legend */}
                 <div className="mt-6 px-4 mb-4">
-                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-3">Hospital Legend</p>
-                    <div className="grid grid-cols-2 gap-3">
-                        {HOSPITALS.map(h => {
+                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-3 pl-1">Hospital</p>
+                    <div className="flex flex-wrap gap-2">
+                        {/* Custom order: Saqr, Dibba, Al Kuwait, AQ General, AQ Women & Child, Omran, Community */}
+                        {[
+                            'Saqr Hospital',
+                            'Dibba Hospital',
+                            'Al Kuwait Sharjah Hospital',
+                            'Al Qasimi General Hospital',
+                            'Al Qasimi Women & Child Hospital',
+                            'Abdullah Bin Omran Hospital',
+                            'Community Health'
+                        ].map(hospitalName => {
+                            const h = HOSPITALS.find(hos => hos.name === hospitalName);
+                            if (!h) return null;
+
                             const category = getHospitalCategory(h.name);
+                            // Smart shortening for legend tags
+                            const shortName = h.name
+                                .replace('Community Health', 'Community')
+                                .replace(' Hospital', '')
+                                .replace('Al Qasimi', 'AQ')
+                                .replace('Abdullah Bin Omran', 'Abdullah B. Omran')
+                                .replace('Sharjah', '')
+                                .trim();
+
                             return (
-                                <div key={h.name} className="flex items-center gap-2 bg-white/50 p-2 rounded-lg border border-white/40 shadow-sm">
-                                    <div className={`w-3 h-3 rounded-full hospital-${category} shadow-sm`} />
-                                    <span className="text-[11px] text-gray-600 font-semibold leading-tight line-clamp-1">
-                                        {h.name.replace(' Hospital', '').replace('Al Qasimi', 'AQ')}
+                                <div key={h.name} className="flex items-center gap-2 px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg">
+                                    <div className={`w-2 h-2 rounded-full hospital-${category}`} />
+                                    <span className="text-[10px] text-gray-600 font-bold uppercase tracking-wide">
+                                        {shortName}
                                     </span>
                                 </div>
                             );

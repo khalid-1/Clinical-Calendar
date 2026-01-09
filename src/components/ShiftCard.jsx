@@ -18,7 +18,7 @@ const ShiftCard = ({ date, shift, isToday, isTomorrow, large = false }) => {
     const isWorking = code && code.toLowerCase() !== 'off' && code.trim() !== '';
     if (large) {
         return (
-            <div className="glass-card rounded-3xl p-6 shadow-xl animate-fade-in-up">
+            <div className="glass-card rounded-3xl p-6 shadow-xl">
                 <div className="flex justify-between items-center mb-4">
                     <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${isToday
                         ? 'bg-blue-50 text-blue-600'
@@ -66,7 +66,7 @@ const ShiftCard = ({ date, shift, isToday, isTomorrow, large = false }) => {
         );
     }
     return (
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center transition-smooth hover:shadow-md">
+        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 hover:border-blue-100">
             <div className="flex items-center gap-4">
                 <div className="bg-gray-50 w-12 h-12 rounded-lg flex flex-col items-center justify-center border border-gray-100">
                     <span className="text-xs text-gray-400 uppercase font-bold">
