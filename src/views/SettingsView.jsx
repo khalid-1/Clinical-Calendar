@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Settings, UserCircle, Trash2, RefreshCw, ChevronRight, ChevronLeft, AlertTriangle, CalendarDays, Info } from 'lucide-react';
+import { Settings, UserCircle, Trash2, RefreshCw, ChevronRight, ChevronLeft, AlertTriangle, CalendarDays, Info, CheckCircle2, Clock } from 'lucide-react';
 import AdminTools from '../components/AdminTools';
+import { getTodayString } from '../utils/dateHelpers';
 
 const SettingsView = ({ user, onChangeUser, onResetData, adminProps }) => {
     const [showResetConfirm, setShowResetConfirm] = useState(false);
@@ -78,24 +79,35 @@ const SettingsView = ({ user, onChangeUser, onResetData, adminProps }) => {
 
                     {/* Quick Stats */}
                     <div className="grid grid-cols-2 gap-3">
-                        <div className="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm">
-                            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-3 text-blue-600">
-                                <CalendarDays size={20} />
-                            </div>
-                            <p className="text-2xl font-bold text-gray-900 leading-none mb-1">
-                                {Object.keys(user.schedule).length}
-                            </p>
-                            <p className="text-xs font-semibold text-gray-400">Scheduled Days</p>
-                        </div>
-                        <div className="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm">
-                            <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mb-3 text-emerald-600">
-                                <Info size={20} />
-                            </div>
-                            <p className="text-2xl font-bold text-gray-900 leading-none mb-1">
-                                {new Set(Object.values(user.schedule)).size}
-                            </p>
-                            <p className="text-xs font-semibold text-gray-400">Unique Rotations</p>
-                        </div>
+                        {(() => {
+                            const today = getTodayString();
+                            const dates = Object.keys(user.schedule).sort();
+                            const completed = dates.filter(d => d < today).length;
+                            const remaining = dates.filter(d => d >= today).length;
+
+                            return (
+                                <>
+                                    <div className="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm">
+                                        <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-3 text-blue-600">
+                                            <Clock size={20} />
+                                        </div>
+                                        <p className="text-2xl font-bold text-gray-900 leading-none mb-1">
+                                            {remaining}
+                                        </p>
+                                        <p className="text-xs font-semibold text-gray-400">Days Remaining</p>
+                                    </div>
+                                    <div className="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm">
+                                        <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mb-3 text-emerald-600">
+                                            <CheckCircle2 size={20} />
+                                        </div>
+                                        <p className="text-2xl font-bold text-gray-900 leading-none mb-1">
+                                            {completed}
+                                        </p>
+                                        <p className="text-xs font-semibold text-gray-400">Days Completed</p>
+                                    </div>
+                                </>
+                            );
+                        })()}
                     </div>
 
                     {/* Actions */}
