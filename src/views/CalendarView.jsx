@@ -280,18 +280,18 @@ const CalendarView = ({ user, onUpdateShift, onMoveShift, onDeleteShift }) => {
                                     {selectedShift ? (
                                         <>
                                             <p className={`text-sm font-bold uppercase tracking-wider mb-0.5 ${(() => {
-                                                    const cat = typeof selectedShift === 'object' ? getHospitalCategory(selectedShift.hospital) : 'default';
-                                                    const colors = {
-                                                        'saqr': 'text-yellow-600',
-                                                        'dibba': 'text-emerald-600',
-                                                        'al-kuwait': 'text-teal-600',
-                                                        'aq-general': 'text-blue-600',
-                                                        'aq-women': 'text-pink-600',
-                                                        'abdullah': 'text-purple-600',
-                                                        'community': 'text-cyan-600'
-                                                    };
-                                                    return colors[cat] || 'text-blue-500';
-                                                })()
+                                                const cat = typeof selectedShift === 'object' ? getHospitalCategory(selectedShift.hospital) : 'default';
+                                                const colors = {
+                                                    'saqr': 'text-yellow-600',
+                                                    'dibba': 'text-emerald-600',
+                                                    'al-kuwait': 'text-teal-600',
+                                                    'aq-general': 'text-blue-600',
+                                                    'aq-women': 'text-pink-600',
+                                                    'abdullah': 'text-purple-600',
+                                                    'community': 'text-cyan-600'
+                                                };
+                                                return colors[cat] || 'text-blue-500';
+                                            })()
                                                 }`}>
                                                 {typeof selectedShift === 'object' ? selectedShift.hospital.replace(' Hospital', '') : ''}
                                             </p>
@@ -352,9 +352,8 @@ const CalendarView = ({ user, onUpdateShift, onMoveShift, onDeleteShift }) => {
                 )}
 
                 {/* Legend */}
-                <div className="mt-6 px-4 mb-4">
-                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-3 pl-1">Hospital</p>
-                    <div className="flex flex-wrap gap-2">
+                <div className="mt-6 px-1 mb-4">
+                    <div className="grid grid-cols-2 gap-3">
                         {/* Custom order: Saqr, Dibba, Al Kuwait, AQ General, AQ Women & Child, Omran, Community */}
                         {[
                             'Saqr Hospital',
@@ -369,20 +368,18 @@ const CalendarView = ({ user, onUpdateShift, onMoveShift, onDeleteShift }) => {
                             if (!h) return null;
 
                             const category = getHospitalCategory(h.name);
-                            // Smart shortening for legend tags
-                            const shortName = h.name
-                                .replace('Community Health', 'Community')
-                                .replace(' Hospital', '')
+                            // Use fuller names for the box layout as per user request
+                            const displayName = h.name
                                 .replace('Al Qasimi', 'AQ')
-                                .replace('Abdullah Bin Omran', 'Abdullah B. Omran')
+                                .replace(' Hospital', '')
                                 .replace('Sharjah', '')
                                 .trim();
 
                             return (
-                                <div key={h.name} className="flex items-center gap-2 px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg">
-                                    <div className={`w-2 h-2 rounded-full hospital-${category}`} />
-                                    <span className="text-[10px] text-gray-600 font-bold uppercase tracking-wide">
-                                        {shortName}
+                                <div key={h.name} className="flex items-center gap-3 p-3 bg-white border border-gray-100 rounded-xl shadow-sm">
+                                    <div className={`w-3 h-3 rounded-full flex-shrink-0 hospital-${category}`} />
+                                    <span className="text-xs font-bold text-gray-700 leading-tight">
+                                        {displayName}
                                     </span>
                                 </div>
                             );
