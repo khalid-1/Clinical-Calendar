@@ -21,18 +21,23 @@ const DashboardView = ({ user, onLogout, onNavigate }) => {
     const todayCode = todayShift?.code || '';
     const isWorking = todayCode && todayCode.toLowerCase() !== 'off' && todayCode.trim() !== '';
 
-    // Get upcoming shifts
-    const upcoming = useMemo(() => {
-        // Filter out past dates, start from tomorrow
-        return getUpcomingDays(user.schedule, activeDate, 14);
-    }, [user.schedule, activeDate]);
-
     // Find next actual rotation (skipping OFF days)
     const nextRotation = useMemo(() => {
         // Look up to 30 days ahead for the next shift
         const candidates = getUpcomingDays(user.schedule, activeDate, 30);
         return candidates.find(c => c.shift.code && c.shift.code.toLowerCase() !== 'off' && c.shift.code.trim() !== '');
     }, [user.schedule, activeDate]);
+
+    // Get upcoming shifts
+    const upcoming = useMemo(() => {
+        // Filter out past dates, start from tomorrow
+        const days = getUpcomingDays(user.schedule, activeDate, 14);
+        // If we have a next rotation countdown, don't show that same date in the upcoming list
+        if (nextRotation) {
+            return days.filter(d => d.date !== nextRotation.date);
+        }
+        return days;
+    }, [user.schedule, activeDate, nextRotation]);
 
     const timeRemaining = nextRotation ? getTimeRemaining(nextRotation.date) : null;
 
@@ -94,21 +99,21 @@ const DashboardView = ({ user, onLogout, onNavigate }) => {
                             {/* Decorative circles */}
                             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
 
-                            <div className="flex justify-between items-end relative z-10">
-                                <div>
-                                    <p className="text-blue-100 text-sm font-medium mb-1">
-                                        {formatDate(nextRotation.date)} &bull; 7:00 AM
-                                    </p>
-                                    <h4 className="text-2xl font-bold mb-1">{nextRotation.shift.hospital}</h4>
-                                    <p className="text-white/80 text-sm flex items-center gap-1.5 uppercase font-bold tracking-wider">
-                                        <MapPin size={14} />
-                                        {nextRotation.shift.code}
-                                    </p>
-                                </div>
-                                <div className="text-right bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/10">
-                                    <p className="text-xl font-bold">{timeRemaining.days}d {timeRemaining.hours}h</p>
-                                    <p className="text-[10px] uppercase tracking-wider opacity-80">Remaining</p>
-                                </div>
+                            {/* Countdown badge at top-right */}
+                            <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/10">
+                                <p className="text-sm font-bold">{timeRemaining.days}d {timeRemaining.hours}h</p>
+                            </div>
+
+                            {/* Main content - stacked vertically */}
+                            <div className="relative z-10 pr-20">
+                                <p className="text-blue-100 text-sm font-medium mb-2">
+                                    {formatDate(nextRotation.date)} &bull; 7:00 AM
+                                </p>
+                                <h4 className="text-lg font-bold leading-tight mb-2">{nextRotation.shift.hospital}</h4>
+                                <p className="text-white/80 text-sm flex items-center gap-1.5 uppercase font-bold tracking-wider">
+                                    <MapPin size={14} />
+                                    {nextRotation.shift.code}
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ import BottomNav from './components/BottomNav';
 import { getStoredData, getSelectedUser, setStoredData, setSelectedUser as saveSelectedUser, clearAllData, clearSelectedUser, getScheduleOverrides, saveScheduleOverrides } from './utils/storage';
 import { processStaticData } from './utils/processStaticData';
 import InstallPrompt from './components/InstallPrompt';
+import ConfirmDialog from './components/ConfirmDialog';
 import { db } from './services/firebase';
 import { doc, updateDoc, deleteField, collection, onSnapshot } from 'firebase/firestore';
 
@@ -73,6 +74,7 @@ function App() {
   const [isStandalone, setIsStandalone] = useState(null); // Use null for initial state to avoid flash
   const [bypassInstall, setBypassInstall] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [deleteConfirm, setDeleteConfirm] = useState({ isOpen: false, studentId: null, date: null });
 
   // 0. Check Standalone Mode
   useEffect(() => {
@@ -180,7 +182,14 @@ function App() {
   };
 
   const handleDeleteShift = async (studentId, date) => {
-    if (!confirm('Are you sure you want to delete this shift?')) return;
+    // Show custom confirmation dialog
+    setDeleteConfirm({ isOpen: true, studentId, date });
+  };
+
+  const confirmDeleteShift = async () => {
+    const { studentId, date } = deleteConfirm;
+    setDeleteConfirm({ isOpen: false, studentId: null, date: null });
+
     try {
       const studentRef = doc(db, 'students', studentId);
       await updateDoc(studentRef, {
@@ -263,6 +272,17 @@ function App() {
           <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
         )}
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={deleteConfirm.isOpen}
+        title="Delete Shift"
+        message="Are you sure you want to delete this shift? This action cannot be undone."
+        onConfirm={confirmDeleteShift}
+        onCancel={() => setDeleteConfirm({ isOpen: false, studentId: null, date: null })}
+        confirmText="Delete"
+        danger={true}
+      />
     </ErrorBoundary>
   );
 }

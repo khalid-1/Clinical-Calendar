@@ -52,13 +52,21 @@ export const processStaticData = (rawData, overrides = {}) => {
             // Map known hospital names to colors if explicit
             if (jsonHospital) {
                 const knownColors = {
+                    'Saqr': 'bg-yellow-500',
                     'Saqr Hospital': 'bg-yellow-500',
+                    'AQ General': 'bg-orange-500',
                     'Al Qasimi General Hospital': 'bg-orange-500',
+                    'AQ Women & Child': 'bg-rose-500',
                     'Al Qasimi Women & Child Hospital': 'bg-rose-500',
+                    'AQ Women': 'bg-rose-500',
+                    'Abdullah Bin Omran': 'bg-blue-500',
                     'Abdullah Bin Omran Hospital': 'bg-blue-500',
+                    'Dibba': 'bg-green-500',
                     'Dibba Hospital': 'bg-green-500',
                     'Community Health': 'bg-cyan-500',
-                    'Al Kuwait Sharjah Hospital': 'bg-emerald-400'
+                    'Al Kuwait Sharjah': 'bg-emerald-400',
+                    'Al Kuwait Sharjah Hospital': 'bg-emerald-400',
+                    'Al Kuwait': 'bg-emerald-400'
                 };
                 hospitalData = {
                     name: jsonHospital,

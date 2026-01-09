@@ -14,7 +14,7 @@ export const detectStudentHospitalContext = (shiftMap) => {
         code === 'MSW' || code === 'FSW' || code === 'MMW' || code === 'FMW'
     );
 
-    if (hasAQGeneralSignal) return 'Al Qasimi General Hospital';
+    if (hasAQGeneralSignal) return 'AQ General';
 
     // Check for AQ Women signals
     const hasAQWomenSignal = codes.some(code =>
@@ -22,14 +22,14 @@ export const detectStudentHospitalContext = (shiftMap) => {
         code.includes('PEAD') || code.startsWith('PN')
     );
 
-    if (hasAQWomenSignal) return 'Al Qasimi Women & Child Hospital';
+    if (hasAQWomenSignal) return 'AQ Women & Child';
 
     // Check for Saqr signals (Generic codes without AQ signals)
     const hasSaqrSignal = codes.some(code =>
         code === 'ICU' || code === 'ER' || code === 'OT' || code === 'OPD' || code === 'AE' || code === 'MW'
     );
 
-    if (hasSaqrSignal) return 'Saqr Hospital';
+    if (hasSaqrSignal) return 'Saqr';
 
     return null;
 };
@@ -45,19 +45,19 @@ export const getHospitalFromShift = (shift, contextHospital = null) => {
 
     // 0. Explicit Prefixes (User Manual Override in Excel)
     if (code.startsWith('AB-') || code.startsWith('AB_') || code.startsWith('ABDULLAH')) {
-        return { name: 'Abdullah Bin Omran Hospital', color: 'bg-blue-500' };
+        return { name: 'Abdullah Bin Omran', color: 'bg-blue-500' };
     }
     if (code.startsWith('DB-') || code.startsWith('DB_') || code.startsWith('DIBBA')) {
         return { name: 'Dibba Hospital', color: 'bg-green-500' };
     }
     if (code.startsWith('AQW-') || code.startsWith('AQW_')) {
-        return { name: 'Al Qasimi Women & Child Hospital', color: 'bg-rose-500' };
+        return { name: 'AQ Women & Child', color: 'bg-rose-500' };
     }
     if (code.startsWith('AQG-') || code.startsWith('AQG_') || code.startsWith('AQ-')) {
-        return { name: 'Al Qasimi General Hospital', color: 'bg-orange-500' };
+        return { name: 'AQ General', color: 'bg-orange-500' };
     }
     if (code.startsWith('S-') || code.startsWith('S_') || code.startsWith('SAQR')) {
-        return { name: 'Saqr Hospital', color: 'bg-yellow-500' };
+        return { name: 'Saqr', color: 'bg-yellow-500' };
     }
 
     // 1. Community Health
@@ -67,7 +67,7 @@ export const getHospitalFromShift = (shift, contextHospital = null) => {
 
     // 2. Al Qasimi Women & Child Hospital (Obstetrics)
     if (code.match(/OBG/) || code === 'LR' || code.includes('OBS') || code === 'NICU' || code.includes('PEAD') || code.startsWith('PN')) {
-        return { name: 'Al Qasimi Women & Child Hospital', color: 'bg-rose-500' };
+        return { name: 'AQ Women & Child', color: 'bg-rose-500' };
     }
 
     // 3. Al Qasimi General Hospital (Critical Care - Specific/Numbered)
@@ -75,23 +75,23 @@ export const getHospitalFromShift = (shift, contextHospital = null) => {
         code === 'SU' || code === 'HD' || code === 'MCW' || code === 'CICU' || code === 'CCU' ||
         code.includes('ENDOSCOPY') ||
         code === 'MSW' || code === 'FSW' || code === 'MMW' || code === 'FMW') {
-        return { name: 'Al Qasimi General Hospital', color: 'bg-orange-500' };
+        return { name: 'AQ General', color: 'bg-orange-500' };
     }
 
     // 4. Context-Aware Fallback
-    if (contextHospital === 'Al Qasimi General Hospital') {
+    if (contextHospital === 'AQ General') {
         if (code === 'ICU' || code === 'ER' || code === 'OT' || code === 'OPD' || code === 'AE' || code === 'MW') {
-            return { name: 'Al Qasimi General Hospital', color: 'bg-orange-500' };
+            return { name: 'AQ General', color: 'bg-orange-500' };
         }
     }
 
     // 5. Saqr Hospital (Critical Care - Generic)
     if (code === 'ICU' || code === 'ER' || code === 'OT' || code === 'OPD' || code === 'AE' || code === 'MW') {
-        return { name: 'Saqr Hospital', color: 'bg-yellow-500' };
+        return { name: 'Saqr', color: 'bg-yellow-500' };
     }
 
     // Default Fallback
-    return { name: 'Al Qasimi General Hospital', color: 'bg-blue-600' };
+    return { name: 'AQ General', color: 'bg-blue-600' };
 };
 
 /**
