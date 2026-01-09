@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { Search, ChevronRight, CalendarDays, Users, Pin } from 'lucide-react';
 import { getPinnedUserId, setPinnedUserId, clearPinnedUserId } from '../utils/storage';
 
@@ -11,6 +11,7 @@ import { getPinnedUserId, setPinnedUserId, clearPinnedUserId } from '../utils/st
 const OnboardingView = ({ students, onSelectUser }) => {
     const [search, setSearch] = useState('');
     const [pinnedId, setPinnedId] = useState(() => getPinnedUserId());
+    const listRef = useRef(null);
 
     const handlePin = (e, studentId) => {
         e.stopPropagation(); // Prevent selecting the user when pinning
@@ -22,6 +23,11 @@ const OnboardingView = ({ students, onSelectUser }) => {
             // Pin this user
             setPinnedUserId(studentId);
             setPinnedId(studentId);
+
+            // Scroll to top to show the pinned user
+            if (listRef.current) {
+                listRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         }
     };
 
@@ -80,7 +86,10 @@ const OnboardingView = ({ students, onSelectUser }) => {
             </div>
 
             {/* Results Count & List */}
-            <div className="flex-1 overflow-y-auto px-4 pt-6 pb-12 overscroll-contain">
+            <div
+                ref={listRef}
+                className="flex-1 overflow-y-auto px-4 pt-6 pb-12 overscroll-contain"
+            >
                 <div className="flex items-center justify-between mb-4 px-2">
                     <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
                         {filteredStudents.length} {filteredStudents.length === 1 ? 'Student' : 'Students'} Found
@@ -113,8 +122,8 @@ const OnboardingView = ({ students, onSelectUser }) => {
 
                                     <div className="flex items-center gap-4">
                                         <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-sm transition-transform group-hover:scale-105 ${isPinned
-                                                ? 'bg-gradient-to-br from-blue-600 to-indigo-700'
-                                                : 'bg-gradient-to-br from-blue-500 to-blue-600'
+                                            ? 'bg-gradient-to-br from-blue-600 to-indigo-700'
+                                            : 'bg-gradient-to-br from-blue-500 to-blue-600'
                                             }`}>
                                             {student.name.charAt(0)}
                                         </div>
